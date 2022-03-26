@@ -7,11 +7,9 @@ import (
 	"github.com/gotk3/gotk3/cairo"
 	"github.com/gotk3/gotk3/gtk"
 
-	"github.com/hultan/softcube/internal/go3d"
+	"github.com/hultan/softcube/internal/vector"
 )
 
-var camera = go3d.Vector3d{Z: -10}
-var screen = go3d.Vector3d{X: -0.5, Y: -0.5, Z: -5}
 var width, height float64
 var thetaX, thetaY, thetaZ = 0.0, 0.0, 0.0
 
@@ -24,13 +22,13 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	width = float64(da.GetAllocatedWidth())
 	height = float64(da.GetAllocatedHeight())
 
-	var cube []go3d.Vector3d
+	var cube []vector.Vector3
 
 	for x := 0; x <= 3; x++ {
 		for y := 0; y <= 3; y++ {
 			for z := 0; z <= 3; z++ {
 				if x == 0 || x == 3 || y == 0 || y == 3 || z == 0 || z == 3 {
-					v := go3d.Vector3d{
+					v := vector.Vector3{
 						X: (float64(x) + cubePosition) * cubeSize,
 						Y: (float64(y) + cubePosition) * cubeSize,
 						Z: (float64(z) + cubePosition) * cubeSize,
@@ -42,18 +40,18 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 		}
 	}
 
-	sc.drawBackground(da, ctx)
-	sc.drawCube(da, ctx, cube, color.RGBA{R: 255, A: 255})
+	sc.drawBackground(ctx)
+	sc.drawCube(ctx, cube, color.RGBA{R: 255, A: 255})
 }
 
 // drawBackground : Draws the background
-func (sc *SoftCube) drawBackground(da *gtk.DrawingArea, ctx *cairo.Context) {
+func (sc *SoftCube) drawBackground(ctx *cairo.Context) {
 	sc.setColor(ctx, color.White)
 	ctx.Rectangle(0, 0, width, height)
 	ctx.Fill()
 }
 
-func (sc *SoftCube) drawCube(da *gtk.DrawingArea, ctx *cairo.Context, cube []go3d.Vector3d, rgba color.RGBA) {
+func (sc *SoftCube) drawCube(ctx *cairo.Context, cube []vector.Vector3, rgba color.RGBA) {
 	sc.setColor(ctx, rgba)
 	d := 5.0
 
@@ -77,8 +75,8 @@ func (sc *SoftCube) drawCube(da *gtk.DrawingArea, ctx *cairo.Context, cube []go3
 		ctx.Rectangle(x-3, y-3, 6, 6)
 		ctx.Fill()
 
-		thetaX += 0.0001
-		thetaY += 0.0001
-		thetaZ += 0.0001
+		// thetaX += 0.0001
+		// thetaY += 0.0001
+		// thetaZ += 0.0001
 	}
 }
