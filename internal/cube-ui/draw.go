@@ -6,14 +6,12 @@ import (
 
 	"github.com/gotk3/gotk3/cairo"
 	"github.com/gotk3/gotk3/gtk"
+
+	"github.com/hultan/softcube/internal/go3d"
 )
 
-type vector3d struct {
-	x, y, z float64
-}
-
-var camera = vector3d{0, 0, -10}
-var screen = vector3d{-0.5, -0.5, -5}
+var camera = go3d.Vector3d{Z: -10}
+var screen = go3d.Vector3d{X: -0.5, Y: -0.5, Z: -5}
 var width, height float64
 var thetaX, thetaY, thetaZ = 0.0, 0.0, 0.0
 
@@ -26,16 +24,16 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	width = float64(da.GetAllocatedWidth())
 	height = float64(da.GetAllocatedHeight())
 
-	var cube []vector3d
+	var cube []go3d.Vector3d
 
 	for x := 0; x <= 3; x++ {
 		for y := 0; y <= 3; y++ {
 			for z := 0; z <= 3; z++ {
 				if x == 0 || x == 3 || y == 0 || y == 3 || z == 0 || z == 3 {
-					v := vector3d{
-						x: (float64(x) + cubePosition) * cubeSize,
-						y: (float64(y) + cubePosition) * cubeSize,
-						z: (float64(z) + cubePosition) * cubeSize,
+					v := go3d.Vector3d{
+						X: (float64(x) + cubePosition) * cubeSize,
+						Y: (float64(y) + cubePosition) * cubeSize,
+						Z: (float64(z) + cubePosition) * cubeSize,
 					}
 
 					cube = append(cube, v)
@@ -43,7 +41,7 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 			}
 		}
 	}
-	
+
 	sc.drawBackground(da, ctx)
 	sc.drawCube(da, ctx, cube, color.RGBA{R: 255, A: 255})
 }
@@ -55,21 +53,21 @@ func (sc *SoftCube) drawBackground(da *gtk.DrawingArea, ctx *cairo.Context) {
 	ctx.Fill()
 }
 
-func (sc *SoftCube) drawCube(da *gtk.DrawingArea, ctx *cairo.Context, cube []vector3d, rgba color.RGBA) {
+func (sc *SoftCube) drawCube(da *gtk.DrawingArea, ctx *cairo.Context, cube []go3d.Vector3d, rgba color.RGBA) {
 	sc.setColor(ctx, rgba)
 	d := 5.0
 
 	sort.Slice(cube, func(i, j int) bool {
-		return cube[i].z < cube[j].z
+		return cube[i].Z < cube[j].Z
 	})
 
 	for _, s := range cube {
 		// Rotate
-		r := s.rotateX(thetaX).rotateY(thetaY).rotateZ(thetaZ)
+		r := s.RotateX(thetaX).RotateY(thetaY).RotateZ(thetaZ)
 
 		// Calculate coords
-		x := r.x * d / (r.z + cubeDistance)
-		y := r.y * d / (r.z + cubeDistance)
+		x := r.X * d / (r.Z + cubeDistance)
+		y := r.Y * d / (r.Z + cubeDistance)
 
 		// Translate to screen coords
 		x = x*width + width/2

@@ -54,13 +54,13 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 	case 113: // Button "Q" => Quit game
 		sc.window.Close() // Close window
 	case 115: // Button "S" => Move camera back
-		camera.z -= 0.1
+		camera.Z -= 0.1
 	case 119: // Button "W" => Move camera forward
-		camera.z += 0.1
+		camera.Z += 0.1
 	case 97: // Button "A" => Move camera left
-		camera.x -= 0.1
+		camera.X -= 0.1
 	case 100: // Button "D" => Move camera right
-		camera.x += 0.1
+		camera.X += 0.1
 	}
 
 	sc.drawingArea.QueueDraw()
