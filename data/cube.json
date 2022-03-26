@@ -1,0 +1,109 @@
+{
+  "pll": [
+    {
+      "name" : "Ua permutation",
+      "cat" : "Edge",
+      "alg" :  "[R U' R] U R U R U' R' U' R2"
+    },
+    {
+      "name" : "Ub permutation",
+      "cat" : "Edge",
+      "alg" :  "R2 U R U R' U' R' U' R' U R'"
+    },
+    {
+      "name" : "Z permutation",
+      "cat" : "Edge",
+      "alg" :  "M2 U M2 U M' U2 M2 U2 M' U2"
+    },
+    {
+      "name" : "H permutation",
+      "cat" : "Edge",
+      "alg" :  "M2 U M2 U2 M2 U M2"
+    },
+    {
+      "name" : "Aa permutation",
+      "cat" : "Corner",
+      "alg" :  "x [R' U R'] D2 [R U' R'] D2 R2"
+    },
+    {
+      "name" : "Ab permutation",
+      "cat" : "Corner",
+      "alg" :  "x R2 D2 [R U R'] D2 [R U' R]"
+    },
+    {
+      "name" : "E permutation",
+      "cat" : "Corner",
+      "alg" :  "x' [R U' R' D] [R U R' D'] [R U R' D] [R U' R' D']"
+    },
+    {
+      "name" : "T permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "[R U R' U'] R' F' R2 U' R' U' [R U R' F']"
+    },
+    {
+      "name" : "F permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "R' U' F' [R U R' U'] R' F' R2 U' R' U' R U R' U R"
+    },
+    {
+      "name" : "Ja permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "[R' U L'] U2 [R U' R' U2] [L R U']"
+    },
+    {
+      "name" : "Jb permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "[R U R' F'] [R U R' U' R' F] [R2 U' R' U']"
+    },
+    {
+      "name" : "Ra permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "[R U R' F'] R U2 R' U2 R' F R U R U2 R' U'"
+    },
+    {
+      "name" : "Rb permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "[R' U2 R U2] R' F R U R' U' R' F' R2 U'"
+    },
+    {
+      "name" : "V permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "[R' U R' U'] y R' F' R2 U' R' U R' F R F"
+    },
+    {
+      "name" : "Y permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "R2 U' R2' U' R2 U R' F' R U R2' U' R' F R"
+    },
+    {
+      "name" : "Na permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "{L U' R U2 L' U R'} {L U' R U2 L' U R'} U"
+    },
+    {
+      "name" : "Nb permutation",
+      "cat" : "Corner & Edge Swap",
+      "alg" :  "{R' U L' U2 R U' L} {R' U L' U2 R U' L} U'"
+    },
+    {
+      "name" : "Ga permutation",
+      "cat" : "Corner & Edge Cycle",
+      "alg" :  "[R2 u] R' U R' U' R u' R2 y' [R' U R]"
+    },
+    {
+      "name" : "Gb permutation",
+      "cat" : "Corner & Edge Cycle",
+      "alg" :  "L' U L y L2 u L' U L U' L u' L2"
+    },
+    {
+      "name" : "Gc permutation",
+      "cat" : "Corner & Edge Cycle",
+      "alg" :  "L2 u' L U' L U L' u L2 y L U' L'"
+    },
+    {
+      "name" : "Gd permutation",
+      "cat" : "Corner & Edge Cycle",
+      "alg" :  "[R U R'] y' R2 u' R U' R' U R' u R2"
+    }
+  ]
+}
