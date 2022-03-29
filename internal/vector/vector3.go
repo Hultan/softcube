@@ -137,7 +137,7 @@ func (v Vector3) DistTo(v2 Vector3) float64 {
 	dx := v.X - v2.X
 	dy := v.Y - v2.Y
 	dz := v.Z - v2.Z
-	return math.Sqrt(dx*dx + dy*dy*dz*dz)
+	return math.Sqrt(dx*dx + dy*dy + dz*dz)
 }
 
 func (v Vector3) Dot(v2 Vector3) float64 {

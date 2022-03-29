@@ -6,7 +6,7 @@ import (
 	"github.com/gotk3/gotk3/cairo"
 )
 
-func (sc *SoftCube) setColor(ctx *cairo.Context, c color.Color) {
+func setColor(ctx *cairo.Context, c color.Color) {
 	r, g, b, a := c.RGBA()
 	ctx.SetSourceRGBA(col(r), col(g), col(b), col(a))
 }
