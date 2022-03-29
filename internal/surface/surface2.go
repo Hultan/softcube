@@ -11,7 +11,7 @@ type Surface2 struct {
 	C              color.Color
 }
 
-func (s Surface2) ToScreenCoords(width, height float64) Surface2 {
+func (s *Surface2) ToScreenCoords(width, height float64) Surface2 {
 	return Surface2{
 		V1: s.V1.MulScalars(width, height).AddScalars(width/2, height/2),
 		V2: s.V2.MulScalars(width, height).AddScalars(width/2, height/2),

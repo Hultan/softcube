@@ -14,3 +14,30 @@ type Surface3 struct {
 func (s *Surface3) Z() float64 {
 	return (s.V1.Z + s.V2.Z + s.V3.Z + s.V4.Z) / 4
 }
+
+func (s *Surface3) Rotate(x, y, z float64) Surface3 {
+	return Surface3{
+		V1: s.V1.RotateX(x).RotateY(y).RotateZ(z),
+		V2: s.V2.RotateX(x).RotateY(y).RotateZ(z),
+		V3: s.V3.RotateX(x).RotateY(y).RotateZ(z),
+		V4: s.V4.RotateX(x).RotateY(y).RotateZ(z),
+		C:  s.C,
+	}
+}
+
+func (s *Surface3) To2DCoords(distance, cubeDistance float64) Surface2 {
+	return Surface2{
+		V1: to2dCoords(s.V1, distance, cubeDistance),
+		V2: to2dCoords(s.V2, distance, cubeDistance),
+		V3: to2dCoords(s.V3, distance, cubeDistance),
+		V4: to2dCoords(s.V4, distance, cubeDistance),
+		C:  s.C,
+	}
+}
+
+func to2dCoords(v vector.Vector3, distance, cubeDistance float64) vector.Vector2 {
+	return vector.Vector2{
+		X: v.X * distance / (v.Z + cubeDistance),
+		Y: v.Y * distance / (v.Z + cubeDistance),
+	}
+}

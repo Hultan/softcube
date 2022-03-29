@@ -61,32 +61,21 @@ func (sc *SoftCube) drawBackground(ctx *cairo.Context) {
 }
 
 func (sc *SoftCube) drawCube(ctx *cairo.Context, surfaces []surface.Surface3) {
+	// Rotate the cube
 	var rotated []surface.Surface3
 	for _, s := range surfaces {
-		rotated = append(rotated, surface.Surface3{
-			V1: s.V1.RotateX(thetaX).RotateY(thetaY).RotateZ(thetaZ),
-			V2: s.V2.RotateX(thetaX).RotateY(thetaY).RotateZ(thetaZ),
-			V3: s.V3.RotateX(thetaX).RotateY(thetaY).RotateZ(thetaZ),
-			V4: s.V4.RotateX(thetaX).RotateY(thetaY).RotateZ(thetaZ),
-			C:  s.C,
-		})
+		rotated = append(rotated, s.Rotate(thetaX, thetaY, thetaZ))
 	}
 
+	// Sort by Z-coord
 	sort.Slice(rotated, func(i, j int) bool {
 		return rotated[i].Z() > rotated[j].Z()
 	})
 
+	// Draw the cube
 	for _, r := range rotated {
-		setColor(ctx, r.C)
-
-		// Calculate coords
-		s := surface.Surface2{
-			V1: to2dCoords(r.V1),
-			V2: to2dCoords(r.V2),
-			V3: to2dCoords(r.V3),
-			V4: to2dCoords(r.V4),
-			C:  r.C,
-		}
+		// Calculate 2d coords
+		s := r.To2DCoords(distance, cubeDistance)
 
 		// Translate to screen coords
 		s = s.ToScreenCoords(width, height)
