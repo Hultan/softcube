@@ -8,7 +8,7 @@ import (
 
 type Surface3 struct {
 	V1, V2, V3, V4 vector.Vector3
-	C              color.Color
+	C1             color.Color
 }
 
 func (s *Surface3) Z() float64 {
@@ -21,7 +21,7 @@ func (s *Surface3) Rotate(x, y, z float64) Surface3 {
 		V2: s.V2.RotateX(x).RotateY(y).RotateZ(z),
 		V3: s.V3.RotateX(x).RotateY(y).RotateZ(z),
 		V4: s.V4.RotateX(x).RotateY(y).RotateZ(z),
-		C:  s.C,
+		C1: s.C1,
 	}
 }
 
@@ -31,7 +31,7 @@ func (s *Surface3) To2DCoords(distance, cubeDistance float64) Surface2 {
 		V2: to2dCoords(s.V2, distance, cubeDistance),
 		V3: to2dCoords(s.V3, distance, cubeDistance),
 		V4: to2dCoords(s.V4, distance, cubeDistance),
-		C:  s.C,
+		C1: s.C1,
 	}
 }
 

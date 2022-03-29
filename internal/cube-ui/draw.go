@@ -81,12 +81,12 @@ func (sc *SoftCube) drawCube(ctx *cairo.Context, surfaces []surface.Surface3) {
 		s = s.ToScreenCoords(width, height)
 
 		// Draw surface
-		drawRectangle(ctx, true, 1, s, s.C)
-		drawRectangle(ctx, false, 2, s, color.Black)
+		drawQuadrilateral(ctx, true, 1, s, s.C1)
+		drawQuadrilateral(ctx, false, 2, s, color.Black)
 	}
 }
 
-func createSurface(a axis, x int, y int, z int, col color.Color) surface.Surface3 {
+func createSurface(a axis, x int, y int, z int, col1 color.Color) surface.Surface3 {
 	switch a {
 	case axisX:
 		return surface.Surface3{
@@ -94,7 +94,7 @@ func createSurface(a axis, x int, y int, z int, col color.Color) surface.Surface
 			V2: createVector(x, 3-y, z+1),
 			V3: createVector(x, 3-y+1, z+1),
 			V4: createVector(x, 3-y+1, z),
-			C:  col,
+			C1: col1,
 		}
 	case axisY:
 		return surface.Surface3{
@@ -102,7 +102,7 @@ func createSurface(a axis, x int, y int, z int, col color.Color) surface.Surface
 			V2: createVector(x+1, 3-y, z),
 			V3: createVector(x+1, 3-y, z+1),
 			V4: createVector(x, 3-y, z+1),
-			C:  col,
+			C1: col1,
 		}
 	case axisZ:
 		return surface.Surface3{
@@ -110,7 +110,7 @@ func createSurface(a axis, x int, y int, z int, col color.Color) surface.Surface
 			V2: createVector(x, 3-y+1, z),
 			V3: createVector(x+1, 3-y+1, z),
 			V4: createVector(x+1, 3-y, z),
-			C:  col,
+			C1: col1,
 		}
 	default:
 		panic(fmt.Sprintf("invalid axis : %d", a))
@@ -152,11 +152,9 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	s = append(s, createSurface(axisY, 0, 3, 2, getColor(str[0])))
 	s = append(s, createSurface(axisY, 1, 3, 2, getColor(str[1])))
 	s = append(s, createSurface(axisY, 2, 3, 2, getColor(str[2])))
-
 	s = append(s, createSurface(axisY, 0, 3, 1, getColor(str[3])))
 	s = append(s, createSurface(axisY, 1, 3, 1, getColor(str[4])))
 	s = append(s, createSurface(axisY, 2, 3, 1, getColor(str[5])))
-
 	s = append(s, createSurface(axisY, 0, 3, 0, getColor(str[6])))
 	s = append(s, createSurface(axisY, 1, 3, 0, getColor(str[7])))
 	s = append(s, createSurface(axisY, 2, 3, 0, getColor(str[8])))
@@ -165,11 +163,9 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	s = append(s, createSurface(axisZ, 0, 3, 0, getColor(str[9])))
 	s = append(s, createSurface(axisZ, 1, 3, 0, getColor(str[10])))
 	s = append(s, createSurface(axisZ, 2, 3, 0, getColor(str[11])))
-
 	s = append(s, createSurface(axisZ, 0, 2, 0, getColor(str[12])))
 	s = append(s, createSurface(axisZ, 1, 2, 0, getColor(str[13])))
 	s = append(s, createSurface(axisZ, 2, 2, 0, getColor(str[14])))
-
 	s = append(s, createSurface(axisZ, 0, 1, 0, getColor(str[15])))
 	s = append(s, createSurface(axisZ, 1, 1, 0, getColor(str[16])))
 	s = append(s, createSurface(axisZ, 2, 1, 0, getColor(str[17])))
@@ -178,11 +174,9 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	s = append(s, createSurface(axisX, 3, 3, 0, getColor(str[18])))
 	s = append(s, createSurface(axisX, 3, 3, 1, getColor(str[19])))
 	s = append(s, createSurface(axisX, 3, 3, 2, getColor(str[20])))
-
 	s = append(s, createSurface(axisX, 3, 2, 0, getColor(str[21])))
 	s = append(s, createSurface(axisX, 3, 2, 1, getColor(str[22])))
 	s = append(s, createSurface(axisX, 3, 2, 2, getColor(str[23])))
-
 	s = append(s, createSurface(axisX, 3, 1, 0, getColor(str[24])))
 	s = append(s, createSurface(axisX, 3, 1, 1, getColor(str[25])))
 	s = append(s, createSurface(axisX, 3, 1, 2, getColor(str[26])))
@@ -191,11 +185,9 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	s = append(s, createSurface(axisZ, 2, 3, 3, getColor(str[27])))
 	s = append(s, createSurface(axisZ, 1, 3, 3, getColor(str[28])))
 	s = append(s, createSurface(axisZ, 0, 3, 3, getColor(str[29])))
-
 	s = append(s, createSurface(axisZ, 2, 2, 3, getColor(str[30])))
 	s = append(s, createSurface(axisZ, 1, 2, 3, getColor(str[31])))
 	s = append(s, createSurface(axisZ, 0, 2, 3, getColor(str[32])))
-
 	s = append(s, createSurface(axisZ, 2, 1, 3, getColor(str[33])))
 	s = append(s, createSurface(axisZ, 1, 1, 3, getColor(str[34])))
 	s = append(s, createSurface(axisZ, 0, 1, 3, getColor(str[35])))
@@ -204,11 +196,9 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	s = append(s, createSurface(axisX, 0, 3, 0, getColor(str[36])))
 	s = append(s, createSurface(axisX, 0, 3, 1, getColor(str[37])))
 	s = append(s, createSurface(axisX, 0, 3, 2, getColor(str[38])))
-
 	s = append(s, createSurface(axisX, 0, 2, 0, getColor(str[39])))
 	s = append(s, createSurface(axisX, 0, 2, 1, getColor(str[40])))
 	s = append(s, createSurface(axisX, 0, 2, 2, getColor(str[41])))
-
 	s = append(s, createSurface(axisX, 0, 1, 0, getColor(str[42])))
 	s = append(s, createSurface(axisX, 0, 1, 1, getColor(str[43])))
 	s = append(s, createSurface(axisX, 0, 1, 2, getColor(str[44])))
@@ -217,11 +207,9 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	s = append(s, createSurface(axisY, 0, 0, 0, getColor(str[45])))
 	s = append(s, createSurface(axisY, 1, 0, 0, getColor(str[46])))
 	s = append(s, createSurface(axisY, 2, 0, 0, getColor(str[47])))
-
 	s = append(s, createSurface(axisY, 0, 0, 1, getColor(str[48])))
 	s = append(s, createSurface(axisY, 1, 0, 1, getColor(str[49])))
 	s = append(s, createSurface(axisY, 2, 0, 1, getColor(str[50])))
-
 	s = append(s, createSurface(axisY, 0, 0, 2, getColor(str[51])))
 	s = append(s, createSurface(axisY, 1, 0, 2, getColor(str[52])))
 	s = append(s, createSurface(axisY, 2, 0, 2, getColor(str[53])))
@@ -229,7 +217,7 @@ func createCube(cube rubik.Cube) []surface.Surface3 {
 	return s
 }
 
-func drawRectangle(ctx *cairo.Context, fill bool, width float64, s surface.Surface2, col color.Color) {
+func drawQuadrilateral(ctx *cairo.Context, fill bool, width float64, s surface.Surface2, col color.Color) {
 	setColor(ctx, col)
 
 	ctx.SetLineWidth(width)
@@ -243,12 +231,5 @@ func drawRectangle(ctx *cairo.Context, fill bool, width float64, s surface.Surfa
 		ctx.Fill()
 	} else {
 		ctx.Stroke()
-	}
-}
-
-func to2dCoords(v vector.Vector3) vector.Vector2 {
-	return vector.Vector2{
-		X: v.X * distance / (v.Z + cubeDistance),
-		Y: v.Y * distance / (v.Z + cubeDistance),
 	}
 }

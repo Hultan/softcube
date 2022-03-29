@@ -22,7 +22,7 @@ func (o *Object) Rotate(x, y, z float64) []surface.Surface3 {
 			V2: r2,
 			V3: r3,
 			V4: r4,
-			C:  s.C,
+			C1: s.C1,
 		})
 	}
 	return rotated
