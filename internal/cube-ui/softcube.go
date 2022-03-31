@@ -1,7 +1,6 @@
 package cube_ui
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/gotk3/gotk3/gdk"
@@ -48,7 +47,7 @@ func (sc *SoftCube) mainLoop() {
 func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 	key := gdk.EventKeyNewFromEvent(e)
 
-	fmt.Println(key.KeyVal())
+	// fmt.Println(key.KeyVal())
 
 	switch key.KeyVal() {
 	case 113: // Button "Q" => Quit game

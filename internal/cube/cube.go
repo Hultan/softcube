@@ -352,3 +352,63 @@ func (cube Cube) Rc() Cube {
 	}
 	return cube.exchange(pairs).rotateLeft(18)
 }
+
+func (cube Cube) M() Cube {
+	pairs := []*Pair{
+		{52, 34}, {49, 31}, {46, 28},
+		{28, 7}, {31, 4}, {34, 1},
+		{7, 16}, {4, 13}, {1, 10},
+		{16, 52}, {13, 49}, {10, 46},
+	}
+	return cube.exchange(pairs)
+}
+
+func (cube Cube) Mc() Cube {
+	pairs := []*Pair{
+		{46, 10}, {49, 13}, {52, 16},
+		{10, 1}, {13, 4}, {16, 7},
+		{1, 34}, {4, 31}, {7, 28},
+		{28, 46}, {31, 49}, {34, 52},
+	}
+	return cube.exchange(pairs)
+}
+
+func (cube Cube) S() Cube {
+	pairs := []*Pair{
+		{43, 3}, {40, 4}, {37, 5},
+		{3, 19}, {4, 22}, {5, 25},
+		{19, 50}, {22, 49}, {25, 48},
+		{50, 43}, {49, 40}, {48, 37},
+	}
+	return cube.exchange(pairs)
+}
+
+func (cube Cube) Sc() Cube {
+	pairs := []*Pair{
+		{37, 48}, {40, 49}, {43, 50},
+		{48, 25}, {49, 22}, {50, 19},
+		{25, 5}, {22, 4}, {19, 3},
+		{5, 37}, {4, 40}, {3, 43},
+	}
+	return cube.exchange(pairs)
+}
+
+func (cube Cube) E() Cube {
+	pairs := []*Pair{
+		{12, 21}, {13, 22}, {14, 23},
+		{21, 30}, {22, 31}, {23, 32},
+		{30, 39}, {31, 40}, {32, 41},
+		{39, 12}, {40, 13}, {41, 14},
+	}
+	return cube.exchange(pairs)
+}
+
+func (cube Cube) Ec() Cube {
+	pairs := []*Pair{
+		{14, 41}, {13, 40}, {12, 39},
+		{41, 32}, {40, 31}, {39, 30},
+		{32, 23}, {31, 22}, {30, 21},
+		{23, 14}, {22, 13}, {21, 12},
+	}
+	return cube.exchange(pairs)
+}
