@@ -5,7 +5,7 @@ import (
 	"image/color"
 	"strings"
 
-	rubik "github.com/hultan/softcube/internal/cube"
+	"github.com/hultan/go-rubik/src/rubik"
 	"github.com/hultan/softcube/internal/surface"
 	"github.com/hultan/softcube/internal/vector"
 )

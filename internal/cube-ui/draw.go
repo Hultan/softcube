@@ -7,7 +7,7 @@ import (
 	"github.com/gotk3/gotk3/cairo"
 	"github.com/gotk3/gotk3/gtk"
 
-	rubik "github.com/hultan/softcube/internal/cube"
+	"github.com/hultan/go-rubik/src/rubik"
 	cube_alg "github.com/hultan/softcube/internal/cube-alg"
 	"github.com/hultan/softcube/internal/surface"
 )

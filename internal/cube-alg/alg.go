@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	rubik "github.com/hultan/softcube/internal/cube"
+	"github.com/hultan/go-rubik/src/rubik"
 )
 
 // Aa : x R' U R' D2 R U' R' D2 R2
