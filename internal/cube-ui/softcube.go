@@ -7,7 +7,6 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 
 	"github.com/hultan/go-rubik/src/rubik"
-	rubik_alg "github.com/hultan/go-rubik/src/rubik-alg"
 )
 
 type SoftCube struct {
@@ -32,11 +31,13 @@ func (sc *SoftCube) StartCube() {
 	sc.tickerQuit = make(chan struct{})
 
 	cube = rubik.NewSolvedCube()
-	alg := rubik_alg.PllPermGb
+	// alg := rubikAlg.PllPermGb
 	// alg = cube_alg.ReverseAlg(alg)
 	// cube = rubik.NewCube("oywbwbroy yboggrbrb bygwrywwr rrygbobbg gwggowoyw rgooyowry")
 	// alg := cube_alg.OLL_9
-	cube = rubik_alg.ExecuteAlg(cube, alg)
+	// cube = rubikAlg.ExecuteAlg(cube, alg)
+
+	resetRotation()
 
 	go sc.mainLoop()
 }
@@ -63,18 +64,26 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 	case 113: // Button "Q" => Quit game
 		sc.window.Close() // Close window
 	case 115: // Button "S" => Move camera back
-		thetaX += 0.05
-	case 119: // Button "W" => Move camera forward
 		thetaX -= 0.05
+	case 119: // Button "W" => Move camera forward
+		thetaX += 0.05
 	case 97: // Button "A" => Move camera left
-		thetaY += 0.05
-	case 100: // Button "D" => Move camera right
 		thetaY -= 0.05
+	case 100: // Button "D" => Move camera right
+		thetaY += 0.05
 	case 122: // Button "Z" => Move camera left
 		thetaZ -= 0.05
 	case 99: // Button "C" => Move camera right
 		thetaZ += 0.05
+	case 120: // Button "X" => Reset rotation
+		resetRotation()
 	}
 
 	sc.drawingArea.QueueDraw()
+}
+
+func resetRotation() {
+	thetaX = 0.2
+	thetaY = -0.2
+	thetaZ = 0
 }

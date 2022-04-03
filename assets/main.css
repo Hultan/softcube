@@ -1,0 +1,9 @@
+.white-background {
+    background-color: white;
+}
+
+.image {
+    border-right: 2px;
+    border-right-color: grey;
+    border-right-style: solid;
+}
