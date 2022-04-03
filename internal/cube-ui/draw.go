@@ -8,7 +8,7 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 
 	"github.com/hultan/go-rubik/src/rubik"
-	cube_alg "github.com/hultan/softcube/internal/cube-alg"
+	rubik_alg "github.com/hultan/go-rubik/src/rubik-alg"
 	"github.com/hultan/softcube/internal/surface"
 )
 
@@ -34,19 +34,12 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	width = float64(da.GetAllocatedWidth())
 	height = float64(da.GetAllocatedHeight())
 
-	// Y Perm (altered)
-	// alg := "R U' R' U' R U R' F' R U R' U' R' F R"
-	// T Perm
-	// alg := "R U R' U' R' F R2 U' R' U' R U R' F'"
-	// R Perm
-	// alg := "R U' R' U' R U R D R' U' R D' R' U2 R' U'"
-	alg := "z'"
-	// alg := "l"
+	cube = rubik.NewSolvedCube()
+	alg := rubik_alg.PllPermGb
 	// alg = cube_alg.ReverseAlg(alg)
-	cube = cube_alg.PerformAlg(rubik.NewSolvedCube(), alg)
-
-	// //  R U R' U' R' F R2 U' R' U' R U R' F'
-	// cube = cube.R().U().Rc().Uc().Rc().F().R().R().Uc().Rc().Uc().R().U().Rc().Fc()
+	// cube = rubik.NewCube("oywbwbroy yboggrbrb bygwrywwr rrygbobbg gwggowoyw rgooyowry")
+	// alg := cube_alg.OLL_9
+	cube = rubik_alg.PerformAlg(cube, alg)
 
 	sc.drawBackground(ctx)
 	sc.drawCube(ctx, createCube(cube))

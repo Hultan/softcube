@@ -53,13 +53,13 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 	case 113: // Button "Q" => Quit game
 		sc.window.Close() // Close window
 	case 115: // Button "S" => Move camera back
-		thetaX -= 0.05
-	case 119: // Button "W" => Move camera forward
 		thetaX += 0.05
+	case 119: // Button "W" => Move camera forward
+		thetaX -= 0.05
 	case 97: // Button "A" => Move camera left
-		thetaY -= 0.05
-	case 100: // Button "D" => Move camera right
 		thetaY += 0.05
+	case 100: // Button "D" => Move camera right
+		thetaY -= 0.05
 	case 122: // Button "Z" => Move camera left
 		thetaZ -= 0.05
 	case 99: // Button "C" => Move camera right
