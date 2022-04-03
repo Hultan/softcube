@@ -20,8 +20,8 @@ func col(c uint32) float64 {
 
 func drawQuadrilateral(ctx *cairo.Context, fill bool, width float64, s surface.Surface2, col color.Color) {
 	setColor(ctx, col)
-
 	ctx.SetLineWidth(width)
+
 	ctx.MoveTo(s.V1.X, s.V1.Y)
 	ctx.LineTo(s.V2.X, s.V2.Y)
 	ctx.LineTo(s.V3.X, s.V3.Y)

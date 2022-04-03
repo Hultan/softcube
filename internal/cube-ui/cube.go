@@ -15,7 +15,7 @@ var (
 	blue   = color.RGBA{R: 0, G: 0, B: 128, A: 255}
 	white  = color.RGBA{R: 255, G: 255, B: 255, A: 255}
 	orange = color.RGBA{R: 225, G: 100, B: 0, A: 255}
-	green  = color.RGBA{R: 4, G: 56, B: 4, A: 255}
+	green  = color.RGBA{R: 24, G: 76, B: 24, A: 255}
 	yellow = color.RGBA{R: 200, G: 200, B: 0, A: 255}
 )
 
@@ -112,29 +112,32 @@ func getColor(ch byte) color.Color {
 }
 
 func createSurface(a axis, x int, y int, z int, col1 color.Color) surface.Surface3 {
+	// Invert the Y-axis
+	y = 3 - y
+
 	switch a {
 	case axisX:
 		return surface.Surface3{
-			V1: createVector(x, 3-y, z),
-			V2: createVector(x, 3-y, z+1),
-			V3: createVector(x, 3-y+1, z+1),
-			V4: createVector(x, 3-y+1, z),
+			V1: createVector(x, y, z),
+			V2: createVector(x, y, z+1),
+			V3: createVector(x, y+1, z+1),
+			V4: createVector(x, y+1, z),
 			C1: col1,
 		}
 	case axisY:
 		return surface.Surface3{
-			V1: createVector(x, 3-y, z),
-			V2: createVector(x+1, 3-y, z),
-			V3: createVector(x+1, 3-y, z+1),
-			V4: createVector(x, 3-y, z+1),
+			V1: createVector(x, y, z),
+			V2: createVector(x+1, y, z),
+			V3: createVector(x+1, y, z+1),
+			V4: createVector(x, y, z+1),
 			C1: col1,
 		}
 	case axisZ:
 		return surface.Surface3{
-			V1: createVector(x, 3-y, z),
-			V2: createVector(x, 3-y+1, z),
-			V3: createVector(x+1, 3-y+1, z),
-			V4: createVector(x+1, 3-y, z),
+			V1: createVector(x, y, z),
+			V2: createVector(x, y+1, z),
+			V3: createVector(x+1, y+1, z),
+			V4: createVector(x+1, y, z),
 			C1: col1,
 		}
 	default:

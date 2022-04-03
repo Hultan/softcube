@@ -5,6 +5,9 @@ import (
 
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
+
+	"github.com/hultan/go-rubik/src/rubik"
+	rubik_alg "github.com/hultan/go-rubik/src/rubik-alg"
 )
 
 type SoftCube struct {
@@ -27,6 +30,13 @@ func (sc *SoftCube) StartCube() {
 
 	sc.ticker = time.NewTicker(50 * time.Millisecond)
 	sc.tickerQuit = make(chan struct{})
+
+	cube = rubik.NewSolvedCube()
+	alg := rubik_alg.PllPermGb
+	// alg = cube_alg.ReverseAlg(alg)
+	// cube = rubik.NewCube("oywbwbroy yboggrbrb bygwrywwr rrygbobbg gwggowoyw rgooyowry")
+	// alg := cube_alg.OLL_9
+	cube = rubik_alg.ExecuteAlg(cube, alg)
 
 	go sc.mainLoop()
 }

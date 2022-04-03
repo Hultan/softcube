@@ -8,7 +8,6 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 
 	"github.com/hultan/go-rubik/src/rubik"
-	rubik_alg "github.com/hultan/go-rubik/src/rubik-alg"
 	"github.com/hultan/softcube/internal/surface"
 )
 
@@ -34,13 +33,6 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	width = float64(da.GetAllocatedWidth())
 	height = float64(da.GetAllocatedHeight())
 
-	cube = rubik.NewSolvedCube()
-	alg := rubik_alg.PllPermGb
-	// alg = cube_alg.ReverseAlg(alg)
-	// cube = rubik.NewCube("oywbwbroy yboggrbrb bygwrywwr rrygbobbg gwggowoyw rgooyowry")
-	// alg := cube_alg.OLL_9
-	cube = rubik_alg.PerformAlg(cube, alg)
-
 	sc.drawBackground(ctx)
 	sc.drawCube(ctx, createCube(cube))
 }
@@ -60,6 +52,7 @@ func (sc *SoftCube) drawCube(ctx *cairo.Context, surfaces []surface.Surface3) {
 	}
 
 	// Sort by Z-coord
+	// We want draw surfaces in the back first
 	sort.Slice(rotated, func(i, j int) bool {
 		return rotated[i].Z() > rotated[j].Z()
 	})
