@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/hultan/softcube/internal/softcube"
@@ -15,6 +16,8 @@ const (
 )
 
 func main() {
+	fmt.Println(softcube.ApplicationInfo())
+
 	// Create a new application
 	application, err := gtk.ApplicationNew(ApplicationId, ApplicationFlags)
 	if err != nil {

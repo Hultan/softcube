@@ -1,17 +1,18 @@
 package softcube
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
 
-	cube_ui "github.com/hultan/softcube/internal/cube-ui"
+	cubeUi "github.com/hultan/softcube/internal/cube-ui"
 	"github.com/hultan/softteam/framework"
 )
 
 const applicationTitle = "softcube"
-const applicationVersion = "v 0.01"
+const applicationVersion = "v 0.50"
 const applicationCopyRight = "©SoftTeam AB, 2020"
 
 type MainForm struct {
@@ -60,22 +61,22 @@ func (m *MainForm) OpenMainForm(app *gtk.Application) {
 	statusBar.Push(statusBar.GetContextId("softcube"), "softcube : version 0.1.0")
 
 	// Menu
-	m.setupMenu(fw)
+	m.setupMenu()
 
 	// Drawing area
 	m.da = m.builder.GetObject("drawingArea").(*gtk.DrawingArea)
 
-	m.setupCSS()
+	// m.setupCSS()
 
 	// Show the main window
 	m.window.ShowAll()
 
 	// Create new game object
-	t := cube_ui.NewCube(m.window, m.da)
+	t := cubeUi.NewCube(m.builder, m.window, m.da)
 	t.StartCube()
 }
 
-func (m *MainForm) setupMenu(fw *framework.Framework) {
+func (m *MainForm) setupMenu() {
 	menuQuit := m.builder.GetObject("menu_file_quit").(*gtk.MenuItem)
 	menuQuit.Connect("activate", m.window.Close)
 }
@@ -98,4 +99,8 @@ func (m *MainForm) setupCSS() {
 	// image := m.builder.GetObject("image").(*gtk.Image)
 	// context, _ = image.GetStyleContext()
 	// context.AddProvider(provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+}
+
+func ApplicationInfo() string {
+	return fmt.Sprintf("%s, %s, %s", applicationTitle, applicationVersion, applicationCopyRight)
 }
