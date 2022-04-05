@@ -2,6 +2,7 @@ package cube_ui
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/gotk3/gotk3/gdk"
@@ -29,6 +30,10 @@ var permButtons = []string{
 	"buttonZPerm",
 }
 
+var ollAlg = []string{
+	"F",
+}
+
 func NewCube(b *framework.GtkBuilder, w *gtk.ApplicationWindow, da *gtk.DrawingArea) *SoftCube {
 	t := &SoftCube{builder: b, window: w, drawingArea: da}
 	t.window.Connect("key-press-event", t.onKeyPressed)
@@ -38,7 +43,29 @@ func NewCube(b *framework.GtkBuilder, w *gtk.ApplicationWindow, da *gtk.DrawingA
 		button.Connect("clicked", performPermutation)
 	}
 
+	btns := getOLLButtons()
+	for _, btn := range btns {
+		button := t.builder.GetObject(btn).(*gtk.Button)
+		button.Connect("clicked", performOLL)
+	}
+
 	return t
+}
+
+func performOLL(btn *gtk.Button) {
+	label, _ := btn.GetLabel()
+
+	label = label[len(label)-2:]
+	n, err := strconv.Atoi(label)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	if n < 1 || n > len(ollAlg) {
+		fmt.Println("invalid oll alg index : ", n)
+		return
+	}
+	cube = rubik_alg.ExecuteAlg(cube, ollAlg[n-1])
 }
 
 func performPermutation(btn *gtk.Button) {
@@ -199,4 +226,13 @@ func resetRotation() {
 	thetaX = 0.2
 	thetaY = -0.2
 	thetaZ = 0
+}
+
+func getOLLButtons() []string {
+	var btns []string
+
+	for i := 0; i < 56; i++ {
+		btns = append(btns, fmt.Sprintf("buttonOLL%02d", i+1))
+	}
+	return btns
 }

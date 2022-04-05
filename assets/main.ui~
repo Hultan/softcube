@@ -736,7 +736,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL01">
                         <property name="label" translatable="yes">OLL 01</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -749,7 +749,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL02">
                         <property name="label" translatable="yes">OLL 02</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -762,7 +762,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL03">
                         <property name="label" translatable="yes">OLL 03</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -775,7 +775,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL04">
                         <property name="label" translatable="yes">OLL 04</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -788,7 +788,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL05">
                         <property name="label" translatable="yes">OLL 05</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -801,7 +801,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL06">
                         <property name="label" translatable="yes">OLL 06</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -825,7 +825,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL07">
                         <property name="label" translatable="yes">OLL 07</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -838,7 +838,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL08">
                         <property name="label" translatable="yes">OLL 08</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -851,7 +851,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL09">
                         <property name="label" translatable="yes">OLL 09</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -864,7 +864,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL10">
                         <property name="label" translatable="yes">OLL 10</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -877,7 +877,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL11">
                         <property name="label" translatable="yes">OLL 11</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -890,7 +890,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL12">
                         <property name="label" translatable="yes">OLL 12</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -914,7 +914,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL13">
                         <property name="label" translatable="yes">OLL 13</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -927,7 +927,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL14">
                         <property name="label" translatable="yes">OLL 14</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -940,7 +940,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL15">
                         <property name="label" translatable="yes">OLL 15</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -953,7 +953,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL16">
                         <property name="label" translatable="yes">OLL 16</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -966,7 +966,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL17">
                         <property name="label" translatable="yes">OLL 17</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -979,7 +979,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL18">
                         <property name="label" translatable="yes">OLL 18</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1003,7 +1003,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL19">
                         <property name="label" translatable="yes">OLL 19</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1016,7 +1016,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL20">
                         <property name="label" translatable="yes">OLL 20</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1029,7 +1029,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL21">
                         <property name="label" translatable="yes">OLL 21</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1042,7 +1042,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL22">
                         <property name="label" translatable="yes">OLL 22</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1055,7 +1055,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL23">
                         <property name="label" translatable="yes">OLL 23</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1068,7 +1068,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL24">
                         <property name="label" translatable="yes">OLL 24</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1092,7 +1092,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL25">
                         <property name="label" translatable="yes">OLL 25</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1105,7 +1105,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL26">
                         <property name="label" translatable="yes">OLL 26</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1118,7 +1118,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL27">
                         <property name="label" translatable="yes">OLL 27</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1131,7 +1131,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL28">
                         <property name="label" translatable="yes">OLL 28</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1144,7 +1144,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL29">
                         <property name="label" translatable="yes">OLL 29</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1157,7 +1157,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="buttonOLL30">
                         <property name="label" translatable="yes">OLL 30</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
