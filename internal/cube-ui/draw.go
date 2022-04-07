@@ -22,8 +22,8 @@ const (
 
 var width, height float64
 var thetaX, thetaY, thetaZ = 0.0, 0.0, 0.0
-var cube rubik.Cube
-var theCube []object.Cube
+var colors rubik.Cube
+var cube []object.Cubit
 
 const cubeSize = 1
 const cubePosition = -1.5
@@ -36,11 +36,7 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	height = float64(da.GetAllocatedHeight())
 
 	sc.drawBackground(ctx)
-	sc.drawCube(ctx, theCube)
-
-	thetaX += 0.01
-	thetaY += 0.01
-	thetaZ += 0.01
+	sc.drawCube(ctx)
 }
 
 // drawBackground : Draws the background
@@ -50,13 +46,31 @@ func (sc *SoftCube) drawBackground(ctx *cairo.Context) {
 	ctx.Fill()
 }
 
-func (sc *SoftCube) drawCube(ctx *cairo.Context, cb []object.Cube) {
+func (sc *SoftCube) drawCube(ctx *cairo.Context) {
 	var sf []surface.Surface3
 
-	for _, o := range cb {
-		sf = append(sf, o.GetSurfaces()...)
+	// Collect all non-black surfaces
+	for _, o := range cube {
+		if o.B.Col != color.Black {
+			sf = append(sf, *o.B)
+		}
+		if o.F.Col != color.Black {
+			sf = append(sf, *o.F)
+		}
+		if o.U.Col != color.Black {
+			sf = append(sf, *o.U)
+		}
+		if o.D.Col != color.Black {
+			sf = append(sf, *o.D)
+		}
+		if o.L.Col != color.Black {
+			sf = append(sf, *o.L)
+		}
+		if o.R.Col != color.Black {
+			sf = append(sf, *o.R)
+		}
 	}
-	
+
 	// Rotate the cube
 	var rotated []surface.Surface3
 	for _, s := range sf {

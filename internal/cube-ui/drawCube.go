@@ -7,7 +7,6 @@ import (
 
 	"github.com/hultan/go-rubik/src/rubik"
 	"github.com/hultan/softcube/internal/object"
-	"github.com/hultan/softcube/internal/surface"
 	"github.com/hultan/softcube/internal/vector"
 )
 
@@ -20,11 +19,8 @@ var (
 	yellow = color.RGBA{R: 200, G: 200, B: 0, A: 255}
 )
 
-func createCube(cube rubik.Cube) []object.Cube {
-	// var s []surface.Surface3
-	// str := strings.Replace(cube.String(), " ", "", -1)
-
-	var c []object.Cube
+func createCube(colors rubik.Cube) []object.Cubit {
+	var c []object.Cubit
 	for z := 0; z < 3; z++ {
 		for y := 0; y < 3; y++ {
 			for x := 0; x < 3; x++ {
@@ -37,79 +33,83 @@ func createCube(cube rubik.Cube) []object.Cube {
 				v7 := createVector(x, y, z+1)
 				v8 := createVector(x+1, y, z+1)
 
-				c = append(c, object.NewCube(v1, v2, v3, v4, v5, v6, v7, v8))
-				fmt.Println(c)
+				c = append(c, object.NewCubit(v1, v2, v3, v4, v5, v6, v7, v8))
 			}
 		}
 	}
-	//
-	// // WHITE
-	// s = append(s, createSurface(axisY, 0, 3, 2, getColor(str[0])))
-	// s = append(s, createSurface(axisY, 1, 3, 2, getColor(str[1])))
-	// s = append(s, createSurface(axisY, 2, 3, 2, getColor(str[2])))
-	// s = append(s, createSurface(axisY, 0, 3, 1, getColor(str[3])))
-	// s = append(s, createSurface(axisY, 1, 3, 1, getColor(str[4])))
-	// s = append(s, createSurface(axisY, 2, 3, 1, getColor(str[5])))
-	// s = append(s, createSurface(axisY, 0, 3, 0, getColor(str[6])))
-	// s = append(s, createSurface(axisY, 1, 3, 0, getColor(str[7])))
-	// s = append(s, createSurface(axisY, 2, 3, 0, getColor(str[8])))
-	//
-	// // GREEN
-	// s = append(s, createSurface(axisZ, 0, 3, 0, getColor(str[9])))
-	// s = append(s, createSurface(axisZ, 1, 3, 0, getColor(str[10])))
-	// s = append(s, createSurface(axisZ, 2, 3, 0, getColor(str[11])))
-	// s = append(s, createSurface(axisZ, 0, 2, 0, getColor(str[12])))
-	// s = append(s, createSurface(axisZ, 1, 2, 0, getColor(str[13])))
-	// s = append(s, createSurface(axisZ, 2, 2, 0, getColor(str[14])))
-	// s = append(s, createSurface(axisZ, 0, 1, 0, getColor(str[15])))
-	// s = append(s, createSurface(axisZ, 1, 1, 0, getColor(str[16])))
-	// s = append(s, createSurface(axisZ, 2, 1, 0, getColor(str[17])))
-	//
-	// // RED
-	// s = append(s, createSurface(axisX, 3, 3, 0, getColor(str[18])))
-	// s = append(s, createSurface(axisX, 3, 3, 1, getColor(str[19])))
-	// s = append(s, createSurface(axisX, 3, 3, 2, getColor(str[20])))
-	// s = append(s, createSurface(axisX, 3, 2, 0, getColor(str[21])))
-	// s = append(s, createSurface(axisX, 3, 2, 1, getColor(str[22])))
-	// s = append(s, createSurface(axisX, 3, 2, 2, getColor(str[23])))
-	// s = append(s, createSurface(axisX, 3, 1, 0, getColor(str[24])))
-	// s = append(s, createSurface(axisX, 3, 1, 1, getColor(str[25])))
-	// s = append(s, createSurface(axisX, 3, 1, 2, getColor(str[26])))
-	//
-	// // BLUE
-	// s = append(s, createSurface(axisZ, 2, 3, 3, getColor(str[27])))
-	// s = append(s, createSurface(axisZ, 1, 3, 3, getColor(str[28])))
-	// s = append(s, createSurface(axisZ, 0, 3, 3, getColor(str[29])))
-	// s = append(s, createSurface(axisZ, 2, 2, 3, getColor(str[30])))
-	// s = append(s, createSurface(axisZ, 1, 2, 3, getColor(str[31])))
-	// s = append(s, createSurface(axisZ, 0, 2, 3, getColor(str[32])))
-	// s = append(s, createSurface(axisZ, 2, 1, 3, getColor(str[33])))
-	// s = append(s, createSurface(axisZ, 1, 1, 3, getColor(str[34])))
-	// s = append(s, createSurface(axisZ, 0, 1, 3, getColor(str[35])))
-	//
-	// // ORANGE
-	// s = append(s, createSurface(axisX, 0, 3, 2, getColor(str[36])))
-	// s = append(s, createSurface(axisX, 0, 3, 1, getColor(str[37])))
-	// s = append(s, createSurface(axisX, 0, 3, 0, getColor(str[38])))
-	// s = append(s, createSurface(axisX, 0, 2, 2, getColor(str[39])))
-	// s = append(s, createSurface(axisX, 0, 2, 1, getColor(str[40])))
-	// s = append(s, createSurface(axisX, 0, 2, 0, getColor(str[41])))
-	// s = append(s, createSurface(axisX, 0, 1, 2, getColor(str[42])))
-	// s = append(s, createSurface(axisX, 0, 1, 1, getColor(str[43])))
-	// s = append(s, createSurface(axisX, 0, 1, 0, getColor(str[44])))
-	//
-	// // YELLOW
-	// s = append(s, createSurface(axisY, 0, 0, 0, getColor(str[45])))
-	// s = append(s, createSurface(axisY, 1, 0, 0, getColor(str[46])))
-	// s = append(s, createSurface(axisY, 2, 0, 0, getColor(str[47])))
-	// s = append(s, createSurface(axisY, 0, 0, 1, getColor(str[48])))
-	// s = append(s, createSurface(axisY, 1, 0, 1, getColor(str[49])))
-	// s = append(s, createSurface(axisY, 2, 0, 1, getColor(str[50])))
-	// s = append(s, createSurface(axisY, 0, 0, 2, getColor(str[51])))
-	// s = append(s, createSurface(axisY, 1, 0, 2, getColor(str[52])))
-	// s = append(s, createSurface(axisY, 2, 0, 2, getColor(str[53])))
+
+	str := strings.Replace(colors.String(), " ", "", -1)
+	fmt.Println(str)
+
+	c[0].U.Col = getColor(str[0])
+	c[1].U.Col = getColor(str[1])
+	c[2].U.Col = getColor(str[2])
+	c[9].U.Col = getColor(str[3])
+	c[10].U.Col = getColor(str[4])
+	c[11].U.Col = getColor(str[5])
+	c[18].U.Col = getColor(str[6])
+	c[19].U.Col = getColor(str[7])
+	c[20].U.Col = getColor(str[8])
+
+	c[0].B.Col = getColor(str[9])
+	c[1].B.Col = getColor(str[10])
+	c[2].B.Col = getColor(str[11])
+	c[3].B.Col = getColor(str[12])
+	c[4].B.Col = getColor(str[13])
+	c[5].B.Col = getColor(str[14])
+	c[6].B.Col = getColor(str[15])
+	c[7].B.Col = getColor(str[16])
+	c[8].B.Col = getColor(str[17])
+
+	c[2].R.Col = getColor(str[18])
+	c[5].R.Col = getColor(str[19])
+	c[8].R.Col = getColor(str[20])
+	c[11].R.Col = getColor(str[21])
+	c[14].R.Col = getColor(str[22])
+	c[17].R.Col = getColor(str[23])
+	c[20].R.Col = getColor(str[24])
+	c[23].R.Col = getColor(str[25])
+	c[26].R.Col = getColor(str[26])
+
+	c[18].F.Col = getColor(str[27])
+	c[19].F.Col = getColor(str[28])
+	c[20].F.Col = getColor(str[29])
+	c[21].F.Col = getColor(str[30])
+	c[22].F.Col = getColor(str[31])
+	c[23].F.Col = getColor(str[32])
+	c[24].F.Col = getColor(str[33])
+	c[25].F.Col = getColor(str[34])
+	c[26].F.Col = getColor(str[35])
+
+	c[0].L.Col = getColor(str[36])
+	c[3].L.Col = getColor(str[37])
+	c[6].L.Col = getColor(str[38])
+	c[9].L.Col = getColor(str[39])
+	c[12].L.Col = getColor(str[40])
+	c[15].L.Col = getColor(str[41])
+	c[18].L.Col = getColor(str[42])
+	c[21].L.Col = getColor(str[43])
+	c[24].L.Col = getColor(str[44])
+
+	c[6].D.Col = getColor(str[45])
+	c[7].D.Col = getColor(str[46])
+	c[8].D.Col = getColor(str[47])
+	c[15].D.Col = getColor(str[48])
+	c[16].D.Col = getColor(str[49])
+	c[17].D.Col = getColor(str[50])
+	c[24].D.Col = getColor(str[51])
+	c[25].D.Col = getColor(str[52])
+	c[26].D.Col = getColor(str[53])
 
 	return c
+}
+
+func createVector(x, y, z int) vector.Vector3 {
+	return vector.Vector3{
+		X: float64(x) - 1.5,
+		Y: float64(y) - 1.5,
+		Z: float64(z) - 1.5,
+	}
 }
 
 func getColor(ch byte) color.Color {
@@ -128,47 +128,5 @@ func getColor(ch byte) color.Color {
 		return yellow
 	default:
 		panic(fmt.Sprintf("invalid color : %c", ch))
-	}
-}
-
-func createSurface(a axis, x int, y int, z int, col1 color.Color) surface.Surface3 {
-	// Invert the Y-axis
-	y = 3 - y
-
-	switch a {
-	case axisX:
-		return surface.Surface3{
-			V1: createVector(x, y, z),
-			V2: createVector(x, y, z+1),
-			V3: createVector(x, y+1, z+1),
-			V4: createVector(x, y+1, z),
-			C1: col1,
-		}
-	case axisY:
-		return surface.Surface3{
-			V1: createVector(x, y, z),
-			V2: createVector(x+1, y, z),
-			V3: createVector(x+1, y, z+1),
-			V4: createVector(x, y, z+1),
-			C1: col1,
-		}
-	case axisZ:
-		return surface.Surface3{
-			V1: createVector(x, y, z),
-			V2: createVector(x, y+1, z),
-			V3: createVector(x+1, y+1, z),
-			V4: createVector(x+1, y, z),
-			C1: col1,
-		}
-	default:
-		panic(fmt.Sprintf("invalid axis : %d", a))
-	}
-}
-
-func createVector(x, y, z int) vector.Vector3 {
-	return vector.Vector3{
-		X: float64(x) - 1.5,
-		Y: float64(y) - 1.5,
-		Z: float64(z) - 1.5,
 	}
 }

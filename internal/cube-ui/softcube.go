@@ -65,7 +65,7 @@ func performOLL(btn *gtk.Button) {
 		fmt.Println("invalid oll alg index : ", n)
 		return
 	}
-	cube = rubik_alg.ExecuteAlg(cube, ollAlg[n-1])
+	colors = rubik_alg.ExecuteAlg(colors, ollAlg[n-1])
 }
 
 func performPermutation(btn *gtk.Button) {
@@ -73,47 +73,47 @@ func performPermutation(btn *gtk.Button) {
 
 	switch label {
 	case "Aa perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermAa)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermAa)
 	case "Ab perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermAb)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermAb)
 	case "E perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermE)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermE)
 	case "F perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermF)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermF)
 	case "Ga perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermGa)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGa)
 	case "Gb perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermGb)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGb)
 	case "Gc perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermGc)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGc)
 	case "Gd perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermGd)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGd)
 	case "H perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermH)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermH)
 	case "Ja perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermJa)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermJa)
 	case "Jb perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermJb)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermJb)
 	case "Na perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermNa)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermNa)
 	case "Nb perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermNb)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermNb)
 	case "Ra perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermRa)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermRa)
 	case "Rb perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermRb)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermRb)
 	case "T perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermT)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermT)
 	case "Ua perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermUa)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermUa)
 	case "Ub perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermUb)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermUb)
 	case "V perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermV)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermV)
 	case "Y perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermY)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermY)
 	case "Z perm":
-		cube = rubik_alg.ExecuteAlg(cube, rubik_alg.PllPermZ)
+		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermZ)
 	}
 }
 
@@ -123,15 +123,9 @@ func (sc *SoftCube) StartCube() {
 	sc.ticker = time.NewTicker(50 * time.Millisecond)
 	sc.tickerQuit = make(chan struct{})
 
-	cube = rubik.NewSolvedCube()
-	// alg := rubikAlg.PllPermGb
-	// alg = cube_alg.ReverseAlg(alg)
-	// cube = rubik.NewCube("oywbwbroy yboggrbrb bygwrywwr rrygbobbg gwggowoyw rgooyowry")
-	// alg := cube_alg.OLL_9
-	// cube = rubikAlg.ExecuteAlg(cube, alg)
-
+	colors = rubik.NewSolvedCube()
 	resetRotation()
-	theCube = createCube(cube)
+	cube = createCube(colors)
 
 	go sc.mainLoop()
 }
@@ -159,65 +153,68 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 	case 113: // Button "Q" => Quit game
 		sc.window.Close() // Close window
 	case 65307: // Button "Esc" => Reset to solved cube
-		cube = rubik.NewSolvedCube()
+		colors = rubik.NewSolvedCube()
 
 	// Cube rotations
 	case 120: // Button "x" => Reset rotation
-		cube = cube.X()
+		// colors = colors.X()
+		thetaX += 0.1
 	case 121: // Button "y" => Move camera left
-		cube = cube.Y()
+		// colors = colors.Y()
+		thetaY += 0.1
 	case 122: // Button "z" => Move camera left
-		cube = cube.Z()
+		// colors = colors.Z()
+		thetaZ += 0.1
 	case 88: // Button "X" => Reset rotation
-		cube = cube.Xc()
+		colors = colors.Xc()
 	case 89: // Button "Y" => Move camera left
-		cube = cube.Yc()
+		colors = colors.Yc()
 	case 90: // Button "Z" => Move camera left
-		cube = cube.Zc()
+		colors = colors.Zc()
 
 	// Turns
 	case 117: // Button "u" => Move camera back
-		cube = cube.U()
+		colors = colors.U()
 	case 100: // Button "d" => Move camera forward
-		cube = cube.D()
+		colors = colors.D()
 	case 85: // Button "U" => Move camera left
-		cube = cube.Uc()
+		colors = colors.Uc()
 	case 68: // Button "D" => Move camera right
-		cube = cube.Dc()
+		colors = colors.Dc()
 
 	case 114: // Button "r" => Move camera back
-		cube = cube.R()
+		colors = colors.R()
 	case 108: // Button "l" => Move camera forward
-		cube = cube.L()
+		colors = colors.L()
 	case 82: // Button "R" => Move camera left
-		cube = cube.Rc()
+		colors = colors.Rc()
 	case 76: // Button "L" => Move camera right
-		cube = cube.Lc()
+		colors = colors.Lc()
 
 	case 102: // Button "f" => Move camera back
-		cube = cube.F()
+		colors = colors.F()
 	case 98: // Button "b" => Move camera forward
-		cube = cube.B()
+		colors = colors.B()
 	case 70: // Button "F" => Move camera left
-		cube = cube.Fc()
+		colors = colors.Fc()
 	case 66: // Button "B" => Move camera right
-		cube = cube.Bc()
+		colors = colors.Bc()
 
 	// TODO : Double turns CTRL + u,d,r,l,f,b
 
 	// Slice moves
 	case 109: // Button "m" => Reset rotation
-		cube = cube.M()
+		colors = colors.M()
 	case 101: // Button "e" => Move camera left
-		cube = cube.E()
+		colors = colors.E()
 	case 115: // Button "s" => Move camera left
-		cube = cube.S()
+		colors = colors.S()
 	case 77: // Button "M" => Reset rotation
-		cube = cube.Mc()
+		colors = colors.Mc()
 	case 69: // Button "E" => Move camera left
-		cube = cube.Ec()
+		colors = colors.Ec()
 	case 83: // Button "S" => Move camera left
-		cube = cube.Sc()
+		colors = colors.Sc()
 	}
 
 	sc.drawingArea.QueueDraw()
