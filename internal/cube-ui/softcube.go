@@ -131,6 +131,7 @@ func (sc *SoftCube) StartCube() {
 	// cube = rubikAlg.ExecuteAlg(cube, alg)
 
 	resetRotation()
+	theCube = createCube(cube)
 
 	go sc.mainLoop()
 }

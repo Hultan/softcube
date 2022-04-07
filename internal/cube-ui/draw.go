@@ -8,6 +8,7 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 
 	"github.com/hultan/go-rubik/src/rubik"
+	"github.com/hultan/softcube/internal/object"
 	"github.com/hultan/softcube/internal/surface"
 )
 
@@ -22,6 +23,7 @@ const (
 var width, height float64
 var thetaX, thetaY, thetaZ = 0.0, 0.0, 0.0
 var cube rubik.Cube
+var theCube []object.Cube
 
 const cubeSize = 1
 const cubePosition = -1.5
@@ -34,7 +36,11 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	height = float64(da.GetAllocatedHeight())
 
 	sc.drawBackground(ctx)
-	sc.drawCube(ctx, createCube(cube))
+	sc.drawCube(ctx, theCube)
+
+	thetaX += 0.01
+	thetaY += 0.01
+	thetaZ += 0.01
 }
 
 // drawBackground : Draws the background
@@ -44,10 +50,16 @@ func (sc *SoftCube) drawBackground(ctx *cairo.Context) {
 	ctx.Fill()
 }
 
-func (sc *SoftCube) drawCube(ctx *cairo.Context, surfaces []surface.Surface3) {
+func (sc *SoftCube) drawCube(ctx *cairo.Context, cb []object.Cube) {
+	var sf []surface.Surface3
+
+	for _, o := range cb {
+		sf = append(sf, o.GetSurfaces()...)
+	}
+	
 	// Rotate the cube
 	var rotated []surface.Surface3
-	for _, s := range surfaces {
+	for _, s := range sf {
 		rotated = append(rotated, s.Rotate(thetaX, thetaY, thetaZ))
 	}
 
