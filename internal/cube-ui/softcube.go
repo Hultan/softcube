@@ -9,7 +9,7 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 
 	"github.com/hultan/go-rubik/src/rubik"
-	rubik_alg "github.com/hultan/go-rubik/src/rubik-alg"
+	alg "github.com/hultan/go-rubik/src/rubik-alg"
 	"github.com/hultan/softteam/framework"
 )
 
@@ -65,7 +65,7 @@ func performOLL(btn *gtk.Button) {
 		fmt.Println("invalid oll alg index : ", n)
 		return
 	}
-	colors = rubik_alg.ExecuteAlg(colors, ollAlg[n-1])
+	colors = alg.ExecuteAlg(colors, ollAlg[n-1])
 }
 
 func performPermutation(btn *gtk.Button) {
@@ -73,47 +73,47 @@ func performPermutation(btn *gtk.Button) {
 
 	switch label {
 	case "Aa perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermAa)
+		colors = alg.ExecuteAlg(colors, alg.PllPermAa)
 	case "Ab perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermAb)
+		colors = alg.ExecuteAlg(colors, alg.PllPermAb)
 	case "E perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermE)
+		colors = alg.ExecuteAlg(colors, alg.PllPermE)
 	case "F perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermF)
+		colors = alg.ExecuteAlg(colors, alg.PllPermF)
 	case "Ga perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGa)
+		colors = alg.ExecuteAlg(colors, alg.PllPermGa)
 	case "Gb perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGb)
+		colors = alg.ExecuteAlg(colors, alg.PllPermGb)
 	case "Gc perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGc)
+		colors = alg.ExecuteAlg(colors, alg.PllPermGc)
 	case "Gd perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermGd)
+		colors = alg.ExecuteAlg(colors, alg.PllPermGd)
 	case "H perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermH)
+		colors = alg.ExecuteAlg(colors, alg.PllPermH)
 	case "Ja perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermJa)
+		colors = alg.ExecuteAlg(colors, alg.PllPermJa)
 	case "Jb perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermJb)
+		colors = alg.ExecuteAlg(colors, alg.PllPermJb)
 	case "Na perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermNa)
+		colors = alg.ExecuteAlg(colors, alg.PllPermNa)
 	case "Nb perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermNb)
+		colors = alg.ExecuteAlg(colors, alg.PllPermNb)
 	case "Ra perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermRa)
+		colors = alg.ExecuteAlg(colors, alg.PllPermRa)
 	case "Rb perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermRb)
+		colors = alg.ExecuteAlg(colors, alg.PllPermRb)
 	case "T perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermT)
+		colors = alg.ExecuteAlg(colors, alg.PllPermT)
 	case "Ua perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermUa)
+		colors = alg.ExecuteAlg(colors, alg.PllPermUa)
 	case "Ub perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermUb)
+		colors = alg.ExecuteAlg(colors, alg.PllPermUb)
 	case "V perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermV)
+		colors = alg.ExecuteAlg(colors, alg.PllPermV)
 	case "Y perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermY)
+		colors = alg.ExecuteAlg(colors, alg.PllPermY)
 	case "Z perm":
-		colors = rubik_alg.ExecuteAlg(colors, rubik_alg.PllPermZ)
+		colors = alg.ExecuteAlg(colors, alg.PllPermZ)
 	}
 }
 
@@ -124,8 +124,9 @@ func (sc *SoftCube) StartCube() {
 	sc.tickerQuit = make(chan struct{})
 
 	colors = rubik.NewSolvedCube()
-	resetRotation()
 	cube = createCube(colors)
+
+	resetRotation()
 
 	go sc.mainLoop()
 }
@@ -156,21 +157,24 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 		colors = rubik.NewSolvedCube()
 
 	// Cube rotations
-	case 120: // Button "x" => Reset rotation
+	case 120: // Button "x" => Rotate around X
 		// colors = colors.X()
 		thetaX += 0.1
-	case 121: // Button "y" => Move camera left
+	case 121: // Button "y" => Rotate around Y
 		// colors = colors.Y()
 		thetaY += 0.1
-	case 122: // Button "z" => Move camera left
+	case 122: // Button "z" => Rotate around Z
 		// colors = colors.Z()
 		thetaZ += 0.1
-	case 88: // Button "X" => Reset rotation
-		colors = colors.Xc()
-	case 89: // Button "Y" => Move camera left
-		colors = colors.Yc()
-	case 90: // Button "Z" => Move camera left
-		colors = colors.Zc()
+	case 88: // Button "X" => Rotate around X counter-clockwise
+		// colors = colors.Xc()
+		thetaX -= 0.1
+	case 89: // Button "Y" => Rotate around Y counter-clockwise
+		// colors = colors.Yc()
+		thetaY -= 0.1
+	case 90: // Button "Z" => Rotate around Z counter-clockwise
+		// colors = colors.Zc()
+		thetaZ -= 0.1
 
 	// Turns
 	case 117: // Button "u" => Move camera back

@@ -38,8 +38,27 @@ func createCube(colors rubik.Cube) []object.Cubit {
 		}
 	}
 
+	c = addColorsToCube(c, colors)
+
+	return c
+}
+
+func addColorsToCube(c []object.Cubit, colors rubik.Cube) []object.Cubit {
 	str := strings.Replace(colors.String(), " ", "", -1)
-	fmt.Println(str)
+	// fmt.Println(str)
+
+	// Indexing of cubits
+	// 0   1   2
+	// 3   4   5
+	// 6   7   8
+	//   \        \
+	// 		9   10  11
+	// 		12  13  14	// Cubit 13 is the center cubit, never visible
+	// 		15  16  17
+	//        \        \
+	// 			18  19  20
+	// 			21  22  23
+	// 			24  25  26
 
 	c[0].U.Col = getColor(str[0])
 	c[1].U.Col = getColor(str[1])

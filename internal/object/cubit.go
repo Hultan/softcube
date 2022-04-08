@@ -15,6 +15,17 @@ type Cubit struct {
 }
 
 func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
+
+	// Corners of the cube:
+	//
+	// LUB --- RUB
+	//  |  \	|  \
+	// 	|	LUF-|-- RUF
+	//  |	 |	|	 |
+	// LDB --| RDB	 |
+	//	  \	 |	  \  |
+	// 		LDF --- RDF
+
 	b := surface.Surface3{
 		V1:  LUB,
 		V2:  RUB,
@@ -29,6 +40,7 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 		V4:  LDF,
 		Col: color.Black,
 	}
+	// NOTE : Switched U and D surface, since Y axis is reverted
 	u := surface.Surface3{
 		V1:  LDB,
 		V2:  RDB,
@@ -36,6 +48,7 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 		V4:  LDF,
 		Col: color.Black,
 	}
+	// NOTE : Switched U and D surface, since Y axis is reverted
 	d := surface.Surface3{
 		V1:  LUB,
 		V2:  RUB,
@@ -76,49 +89,6 @@ func getRandomColor() color.Color {
 	}
 }
 
-//
-// func (c *Cubit) GetSurfaces() []surface.Surface3 {
-// 	b := surface.Surface3{
-// 		V1: c.LUB,
-// 		V2: c.RUB,
-// 		V3: c.RDB,
-// 		V4: c.LDB,
-// 		Col: c.ColB,
-// 	}
-// 	f := surface.Surface3{
-// 		V1: c.LUF,
-// 		V2: c.RUF,
-// 		V3: c.RDF,
-// 		V4: c.LDF,
-// 		Col: c.ColF,
-// 	}
-// 	u := surface.Surface3{
-// 		V1: c.LUB,
-// 		V2: c.RUB,
-// 		V3: c.RUF,
-// 		V4: c.LUF,
-// 		Col: c.ColU,
-// 	}
-// 	d := surface.Surface3{
-// 		V1: c.LDB,
-// 		V2: c.RDB,
-// 		V3: c.RDF,
-// 		V4: c.LDF,
-// 		Col: c.ColD,
-// 	}
-// 	l := surface.Surface3{
-// 		V1: c.LUB,
-// 		V2: c.LUF,
-// 		V3: c.LDF,
-// 		V4: c.LDB,
-// 		Col: c.ColL,
-// 	}
-// 	r := surface.Surface3{
-// 		V1: c.RUB,
-// 		V2: c.RUF,
-// 		V3: c.RDF,
-// 		V4: c.RDB,
-// 		Col: c.ColR,
-// 	}
-// 	return []surface.Surface3{b, f, u, d, l, r}
-// }
+func (c *Cubit) GetSurfaces() []*surface.Surface3 {
+	return []*surface.Surface3{c.B, c.F, c.U, c.D, c.L, c.R}
+}

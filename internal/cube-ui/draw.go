@@ -35,6 +35,8 @@ func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	width = float64(da.GetAllocatedWidth())
 	height = float64(da.GetAllocatedHeight())
 
+	cube = createCube(colors)
+
 	sc.drawBackground(ctx)
 	sc.drawCube(ctx)
 }
@@ -47,28 +49,29 @@ func (sc *SoftCube) drawBackground(ctx *cairo.Context) {
 }
 
 func (sc *SoftCube) drawCube(ctx *cairo.Context) {
-	var sf []surface.Surface3
+	var sf []*surface.Surface3
 
 	// Collect all non-black surfaces
 	for _, o := range cube {
-		if o.B.Col != color.Black {
-			sf = append(sf, *o.B)
-		}
-		if o.F.Col != color.Black {
-			sf = append(sf, *o.F)
-		}
-		if o.U.Col != color.Black {
-			sf = append(sf, *o.U)
-		}
-		if o.D.Col != color.Black {
-			sf = append(sf, *o.D)
-		}
-		if o.L.Col != color.Black {
-			sf = append(sf, *o.L)
-		}
-		if o.R.Col != color.Black {
-			sf = append(sf, *o.R)
-		}
+		sf = append(sf, o.GetSurfaces()...)
+		// if o.B.Col != color.Black {
+		// 	sf = append(sf, *o.B)
+		// }
+		// if o.F.Col != color.Black {
+		// 	sf = append(sf, *o.F)
+		// }
+		// if o.U.Col != color.Black {
+		// 	sf = append(sf, *o.U)
+		// }
+		// if o.D.Col != color.Black {
+		// 	sf = append(sf, *o.D)
+		// }
+		// if o.L.Col != color.Black {
+		// 	sf = append(sf, *o.L)
+		// }
+		// if o.R.Col != color.Black {
+		// 	sf = append(sf, *o.R)
+		// }
 	}
 
 	// Rotate the cube
