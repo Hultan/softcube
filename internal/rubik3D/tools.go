@@ -22,11 +22,14 @@ func drawQuadrilateral(ctx *cairo.Context, fill bool, width float64, s surface.S
 	setColor(ctx, col)
 	ctx.SetLineWidth(width)
 
+	ctx.NewPath()
+
 	ctx.MoveTo(s.V1.X, s.V1.Y)
 	ctx.LineTo(s.V2.X, s.V2.Y)
 	ctx.LineTo(s.V3.X, s.V3.Y)
 	ctx.LineTo(s.V4.X, s.V4.Y)
-	ctx.LineTo(s.V1.X, s.V1.Y)
+
+	ctx.ClosePath()
 
 	if fill {
 		ctx.Fill()
