@@ -221,6 +221,8 @@ func (c *Cube) updateColors() {
 	str := strings.Replace(c.internalCube.String(), " ", "", -1)
 	fmt.Println(str)
 
+	// Indexing of cube colors : https://github.com/yackx/go-rubik
+	//
 	// Indexing of cubits
 	// 18  19  20
 	// 21  22  23
