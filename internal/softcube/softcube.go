@@ -43,13 +43,13 @@ func NewCube(b *framework.GtkBuilder, w *gtk.ApplicationWindow, da *gtk.DrawingA
 
 	for _, permButton := range permButtons {
 		button := t.builder.GetObject(permButton).(*gtk.Button)
-		button.Connect("clicked", performPermutation)
+		button.Connect("clicked", performPLL)
 	}
 
-	btns := getOLLButtons()
-	for _, btn := range btns {
-		button := t.builder.GetObject(btn).(*gtk.Button)
-		button.Connect("clicked", performOLL)
+	buttons := getOLLButtonNames()
+	for _, button := range buttons {
+		btn := t.builder.GetObject(button).(*gtk.Button)
+		btn.Connect("clicked", performOLL)
 	}
 
 	return t
@@ -196,13 +196,12 @@ func resetRotation() {
 	cube.ThetaZ = 0
 }
 
-func getOLLButtons() []string {
-	var btns []string
-
+func getOLLButtonNames() []string {
+	var buttons []string
 	for i := 0; i < 56; i++ {
-		btns = append(btns, fmt.Sprintf("buttonOLL%02d", i+1))
+		buttons = append(buttons, fmt.Sprintf("buttonOLL%02d", i+1))
 	}
-	return btns
+	return buttons
 }
 
 func performOLL(btn *gtk.Button) {
@@ -221,7 +220,7 @@ func performOLL(btn *gtk.Button) {
 	cube.ExecuteAlg(ollAlg[n-1])
 }
 
-func performPermutation(btn *gtk.Button) {
+func performPLL(btn *gtk.Button) {
 	label, _ := btn.GetLabel()
 
 	switch label {
