@@ -52,6 +52,9 @@ func NewCube(b *framework.GtkBuilder, w *gtk.ApplicationWindow, da *gtk.DrawingA
 		btn.Connect("clicked", performOLL)
 	}
 
+	cube = rubik3D.NewCube()
+	resetRotation()
+
 	return t
 }
 
@@ -60,10 +63,6 @@ func (sc *SoftCube) StartCube() {
 
 	sc.ticker = time.NewTicker(50 * time.Millisecond)
 	sc.tickerQuit = make(chan struct{})
-
-	cube = rubik3D.NewCube()
-
-	resetRotation()
 
 	go sc.mainLoop()
 }
@@ -109,37 +108,37 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 		if rotate {
 			cube.X()
 		} else {
-			cube.ThetaX += 0.1
+			cube.AngleX += 0.1
 		}
 	case 121: // Button "y" => Rotate around Y
 		if rotate {
 			cube.Y()
 		} else {
-			cube.ThetaY += 0.1
+			cube.AngleY += 0.1
 		}
 	case 122: // Button "z" => Rotate around Z
 		if rotate {
 			cube.Z()
 		} else {
-			cube.ThetaZ += 0.1
+			cube.AngleZ += 0.1
 		}
 	case 88: // Button "X" => Rotate around X counter-clockwise
 		if rotate {
 			cube.Xc()
 		} else {
-			cube.ThetaX -= 0.1
+			cube.AngleX -= 0.1
 		}
 	case 89: // Button "Y" => Rotate around Y counter-clockwise
 		if rotate {
 			cube.Yc()
 		} else {
-			cube.ThetaY -= 0.1
+			cube.AngleY -= 0.1
 		}
 	case 90: // Button "Z" => Rotate around Z counter-clockwise
 		if rotate {
 			cube.Zc()
 		} else {
-			cube.ThetaZ -= 0.1
+			cube.AngleZ -= 0.1
 		}
 
 	// Turns
@@ -191,9 +190,9 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 }
 
 func resetRotation() {
-	cube.ThetaX = 0.2
-	cube.ThetaY = -0.2
-	cube.ThetaZ = 0
+	cube.AngleX = 0.2
+	cube.AngleY = -0.2
+	cube.AngleZ = 0
 }
 
 func getOLLButtonNames() []string {

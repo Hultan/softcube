@@ -16,7 +16,7 @@ const distance = 5
 
 // drawBackground : Draws the background
 func (c *Cube) drawBackground(ctx *cairo.Context) {
-	setColor(ctx, color.White)
+	setColor(ctx, c.BackgroundColor)
 	ctx.Rectangle(0, 0, width, height)
 	ctx.Fill()
 }
@@ -35,7 +35,7 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 	// Rotate the cube
 	var rotatedSurfaces []surface.Surface3
 	for _, s := range surfaces {
-		rotatedSurfaces = append(rotatedSurfaces, s.Rotate(c.ThetaX, c.ThetaY, c.ThetaZ))
+		rotatedSurfaces = append(rotatedSurfaces, s.Rotate(c.AngleX, c.AngleY, c.AngleZ))
 	}
 
 	// Sort by Z-coord

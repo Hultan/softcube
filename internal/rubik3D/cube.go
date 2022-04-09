@@ -15,7 +15,7 @@ import (
 
 type Cube struct {
 	BackgroundColor        color.Color
-	ThetaX, ThetaY, ThetaZ float64
+	AngleX, AngleY, AngleZ float64
 
 	cubits       []Cubit
 	internalCube rubik.Cube
@@ -50,6 +50,7 @@ func NewCube() *Cube {
 		}
 	}
 
+	c.BackgroundColor = color.White
 	c.internalCube = rubik.NewSolvedCube()
 	c.updateColors()
 
