@@ -85,6 +85,8 @@ func (sc *SoftCube) mainLoop() {
 func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 	key := gdk.EventKeyNewFromEvent(e)
 
+	rotate := true
+
 	fmt.Println(key.KeyVal())
 
 	switch key.KeyVal() {
@@ -96,23 +98,41 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 
 	// Cube rotations
 	case 120: // Button "x" => Rotate around X
-		// cube.X()
-		thetaX += 0.1
+		if rotate {
+			cube.X()
+		} else {
+			thetaX += 0.1
+		}
 	case 121: // Button "y" => Rotate around Y
-		// cube.Y()
-		thetaY += 0.1
+		if rotate {
+			cube.Y()
+		} else {
+			thetaY += 0.1
+		}
 	case 122: // Button "z" => Rotate around Z
-		// cube.Z()
-		thetaZ += 0.1
+		if rotate {
+			cube.Z()
+		} else {
+			thetaZ += 0.1
+		}
 	case 88: // Button "X" => Rotate around X counter-clockwise
-		// cube.Xc()
-		thetaX -= 0.1
+		if rotate {
+			cube.Xc()
+		} else {
+			thetaX -= 0.1
+		}
 	case 89: // Button "Y" => Rotate around Y counter-clockwise
-		// cube.Yc()
-		thetaY -= 0.1
+		if rotate {
+			cube.Yc()
+		} else {
+			thetaY -= 0.1
+		}
 	case 90: // Button "Z" => Rotate around Z counter-clockwise
-		// cube.Zc()
-		thetaZ -= 0.1
+		if rotate {
+			cube.Zc()
+		} else {
+			thetaZ -= 0.1
+		}
 
 	// Turns
 	case 117: // Button "u" => Move camera back
