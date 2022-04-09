@@ -7,26 +7,14 @@ import (
 	"github.com/gotk3/gotk3/cairo"
 	"github.com/gotk3/gotk3/gtk"
 
-	"github.com/hultan/go-rubik/src/rubik"
-	"github.com/hultan/softcube/internal/object"
+	"github.com/hultan/softcube/internal/rubik3D"
 	"github.com/hultan/softcube/internal/surface"
-)
-
-type axis int
-
-const (
-	axisX axis = iota
-	axisY
-	axisZ
 )
 
 var width, height float64
 var thetaX, thetaY, thetaZ = 0.0, 0.0, 0.0
-var colors rubik.Cube
-var cube []object.Cubit
+var cube *rubik3D.Cube
 
-const cubeSize = 1
-const cubePosition = -1.5
 const cubeDistance = 30.0
 const distance = 5
 
@@ -34,8 +22,6 @@ const distance = 5
 func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
 	width = float64(da.GetAllocatedWidth())
 	height = float64(da.GetAllocatedHeight())
-
-	cube = createCube(colors)
 
 	sc.drawBackground(ctx)
 	sc.drawCube(ctx)
@@ -51,28 +37,12 @@ func (sc *SoftCube) drawBackground(ctx *cairo.Context) {
 func (sc *SoftCube) drawCube(ctx *cairo.Context) {
 	var sf []*surface.Surface3
 
-	// Collect all non-black surfaces
-	for _, o := range cube {
+	// Collect all the surfaces
+	for _, o := range cube.GetCubits() {
 		sf = append(sf, o.GetSurfaces()...)
-		// if o.B.Col != color.Black {
-		// 	sf = append(sf, *o.B)
-		// }
-		// if o.F.Col != color.Black {
-		// 	sf = append(sf, *o.F)
-		// }
-		// if o.U.Col != color.Black {
-		// 	sf = append(sf, *o.U)
-		// }
-		// if o.D.Col != color.Black {
-		// 	sf = append(sf, *o.D)
-		// }
-		// if o.L.Col != color.Black {
-		// 	sf = append(sf, *o.L)
-		// }
-		// if o.R.Col != color.Black {
-		// 	sf = append(sf, *o.R)
-		// }
 	}
+
+	// TODO : Rotate layer here?
 
 	// Rotate the cube
 	var rotated []surface.Surface3

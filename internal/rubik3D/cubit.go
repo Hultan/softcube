@@ -1,8 +1,7 @@
-package object
+package rubik3D
 
 import (
 	"image/color"
-	"math/rand"
 
 	"github.com/hultan/softcube/internal/surface"
 	"github.com/hultan/softcube/internal/vector"
@@ -77,15 +76,6 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 		D: &d,
 		L: &l,
 		R: &r,
-	}
-}
-
-func getRandomColor() color.Color {
-	return color.RGBA{
-		uint8(rand.Intn(255)),
-		uint8(rand.Intn(255)),
-		uint8(rand.Intn(255)),
-		255,
 	}
 }
 
