@@ -1,10 +1,11 @@
-package cube_ui
+package softcube
 
 import (
 	"fmt"
 	"strconv"
 	"time"
 
+	"github.com/gotk3/gotk3/cairo"
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
 
@@ -33,6 +34,8 @@ var permButtons = []string{
 var ollAlg = []string{
 	"F",
 }
+
+var cube *rubik3D.Cube
 
 func NewCube(b *framework.GtkBuilder, w *gtk.ApplicationWindow, da *gtk.DrawingArea) *SoftCube {
 	t := &SoftCube{builder: b, window: w, drawingArea: da}
@@ -69,6 +72,11 @@ func (sc *SoftCube) StartCube() {
 // Private functions
 //
 
+// onDraw : The onDraw signal handler
+func (sc *SoftCube) onDraw(da *gtk.DrawingArea, ctx *cairo.Context) {
+	cube.Draw(da, ctx)
+}
+
 func (sc *SoftCube) mainLoop() {
 	for {
 		select {
@@ -101,37 +109,37 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 		if rotate {
 			cube.X()
 		} else {
-			thetaX += 0.1
+			cube.ThetaX += 0.1
 		}
 	case 121: // Button "y" => Rotate around Y
 		if rotate {
 			cube.Y()
 		} else {
-			thetaY += 0.1
+			cube.ThetaY += 0.1
 		}
 	case 122: // Button "z" => Rotate around Z
 		if rotate {
 			cube.Z()
 		} else {
-			thetaZ += 0.1
+			cube.ThetaZ += 0.1
 		}
 	case 88: // Button "X" => Rotate around X counter-clockwise
 		if rotate {
 			cube.Xc()
 		} else {
-			thetaX -= 0.1
+			cube.ThetaX -= 0.1
 		}
 	case 89: // Button "Y" => Rotate around Y counter-clockwise
 		if rotate {
 			cube.Yc()
 		} else {
-			thetaY -= 0.1
+			cube.ThetaY -= 0.1
 		}
 	case 90: // Button "Z" => Rotate around Z counter-clockwise
 		if rotate {
 			cube.Zc()
 		} else {
-			thetaZ -= 0.1
+			cube.ThetaZ -= 0.1
 		}
 
 	// Turns
@@ -183,9 +191,9 @@ func (sc *SoftCube) onKeyPressed(_ *gtk.ApplicationWindow, e *gdk.Event) {
 }
 
 func resetRotation() {
-	thetaX = 0.2
-	thetaY = -0.2
-	thetaZ = 0
+	cube.ThetaX = 0.2
+	cube.ThetaY = -0.2
+	cube.ThetaZ = 0
 }
 
 func getOLLButtons() []string {

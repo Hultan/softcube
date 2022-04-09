@@ -7,7 +7,6 @@ import (
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
 
-	cubeUi "github.com/hultan/softcube/internal/cube-ui"
 	"github.com/hultan/softteam/framework"
 )
 
@@ -72,7 +71,7 @@ func (m *MainForm) OpenMainForm(app *gtk.Application) {
 	m.window.ShowAll()
 
 	// Create new game object
-	t := cubeUi.NewCube(m.builder, m.window, m.da)
+	t := NewCube(m.builder, m.window, m.da)
 	t.StartCube()
 }
 

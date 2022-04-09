@@ -1,4 +1,4 @@
-package cube_ui
+package rubik3D
 
 import (
 	"image/color"
