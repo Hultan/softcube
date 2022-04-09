@@ -3,7 +3,6 @@ package rubik3D
 import (
 	"fmt"
 	"image/color"
-	"sort"
 	"strings"
 
 	"github.com/gotk3/gotk3/cairo"
@@ -11,7 +10,6 @@ import (
 
 	"github.com/hultan/go-rubik/src/rubik"
 	alg "github.com/hultan/go-rubik/src/rubik-alg"
-	"github.com/hultan/softcube/internal/surface"
 	"github.com/hultan/softcube/internal/vector"
 )
 
@@ -31,11 +29,6 @@ var (
 	green  = color.RGBA{R: 24, G: 76, B: 24, A: 255}
 	yellow = color.RGBA{R: 200, G: 200, B: 0, A: 255}
 )
-
-var width, height float64
-
-const cubeDistance = 30.0
-const distance = 5
 
 func NewCube() *Cube {
 	c := &Cube{}
@@ -63,10 +56,6 @@ func NewCube() *Cube {
 	return c
 }
 
-func (c *Cube) GetCubits() []Cubit {
-	return c.cubits
-}
-
 func (c *Cube) Reset() {
 	c.internalCube = rubik.NewSolvedCube()
 	c.updateColors()
@@ -83,50 +72,6 @@ func (c *Cube) Draw(da *gtk.DrawingArea, ctx *cairo.Context) {
 
 	c.drawBackground(ctx)
 	c.drawCube(ctx)
-}
-
-// drawBackground : Draws the background
-func (c *Cube) drawBackground(ctx *cairo.Context) {
-	setColor(ctx, color.White)
-	ctx.Rectangle(0, 0, width, height)
-	ctx.Fill()
-}
-
-// drawCube : Draws the actual cube
-func (c *Cube) drawCube(ctx *cairo.Context) {
-	var sf []*surface.Surface3
-
-	// Collect all the surfaces
-	for _, o := range c.GetCubits() {
-		sf = append(sf, o.GetSurfaces()...)
-	}
-
-	// TODO : Rotate layer here?
-
-	// Rotate the cube
-	var rotated []surface.Surface3
-	for _, s := range sf {
-		rotated = append(rotated, s.Rotate(c.ThetaX, c.ThetaY, c.ThetaZ))
-	}
-
-	// Sort by Z-coord
-	// We want draw surfaces in the back first
-	sort.Slice(rotated, func(i, j int) bool {
-		return rotated[i].Z() > rotated[j].Z()
-	})
-
-	// Draw the cube
-	for _, r := range rotated {
-		// Calculate 2d coords
-		s := r.To2DCoords(distance, cubeDistance)
-
-		// Translate to screen coords
-		s = s.ToScreenCoords(width, height)
-
-		// Draw surface
-		drawQuadrilateral(ctx, true, 1, s, s.C1)
-		drawQuadrilateral(ctx, false, 2, s, color.Black)
-	}
 }
 
 func (c *Cube) X() {

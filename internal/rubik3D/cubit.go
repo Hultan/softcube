@@ -79,6 +79,6 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 	}
 }
 
-func (c *Cubit) GetSurfaces() []*surface.Surface3 {
+func (c *Cubit) getSurfaces() []*surface.Surface3 {
 	return []*surface.Surface3{c.B, c.F, c.U, c.D, c.L, c.R}
 }
