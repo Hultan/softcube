@@ -8,9 +8,9 @@ import (
 )
 
 type Cubit struct {
-	F, B *surface.Surface3
-	U, D *surface.Surface3
-	L, R *surface.Surface3
+	F, B surface.Surface3
+	U, D surface.Surface3
+	L, R surface.Surface3
 }
 
 func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
@@ -70,15 +70,26 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 		Col: color.Black,
 	}
 	return Cubit{
-		B: &b,
-		F: &f,
-		U: &u,
-		D: &d,
-		L: &l,
-		R: &r,
+		B: b,
+		F: f,
+		U: u,
+		D: d,
+		L: l,
+		R: r,
 	}
 }
 
-func (c *Cubit) getSurfaces() []*surface.Surface3 {
-	return []*surface.Surface3{c.B, c.F, c.U, c.D, c.L, c.R}
+// func (c Cubit) Rotate(x, y, z float64) *Cubit {
+// 	return &Cubit{
+// 		B: c.B.Rotate(x,y,z),
+// 		V1:  s.V1.RotateX(x).RotateY(y).RotateZ(z),
+// 		V2:  s.V2.RotateX(x).RotateY(y).RotateZ(z),
+// 		V3:  s.V3.RotateX(x).RotateY(y).RotateZ(z),
+// 		V4:  s.V4.RotateX(x).RotateY(y).RotateZ(z),
+// 		Col: s.Col,
+// 	}
+// }
+
+func (c Cubit) getSurfaces() []surface.Surface3 {
+	return []surface.Surface3{c.B, c.F, c.U, c.D, c.L, c.R}
 }

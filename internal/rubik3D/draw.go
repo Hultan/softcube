@@ -23,14 +23,12 @@ func (c *Cube) drawBackground(ctx *cairo.Context) {
 
 // drawCube : Draws the actual cube
 func (c *Cube) drawCube(ctx *cairo.Context) {
-	var surfaces []*surface.Surface3
+	var surfaces []surface.Surface3
 
 	// Collect all the surfaces
 	for _, cubit := range c.cubits {
 		surfaces = append(surfaces, cubit.getSurfaces()...)
 	}
-
-	// TODO : Rotate layer here?
 
 	// Rotate the cube
 	var rotatedSurfaces []surface.Surface3
