@@ -34,8 +34,6 @@ var (
 	yellow = color.RGBA{R: 200, G: 200, B: 0, A: 255}
 )
 
-var endAnimation func()
-
 func NewCube() *Cube {
 	c := &Cube{}
 

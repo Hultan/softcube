@@ -13,7 +13,6 @@ var width, height float64
 
 const cubeDistance = 30.0
 const distance = 5
-const animationSteps = 20
 
 // drawBackground : Draws the background
 func (c *Cube) drawBackground(ctx *cairo.Context) {
@@ -32,11 +31,10 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 			c.animatingQueue = c.animatingQueue[1:]
 		}
 	} else {
-		if c.currentAnimation.animation {
+		if c.currentAnimation.isAnimation {
 			c.currentAnimation.step += 1
-			c.currentAnimation.angle += (c.currentAnimation.endAngle - c.currentAnimation.startAngle) / animationSteps
+			c.currentAnimation.angle += c.currentAnimation.endAngle / animationSteps
 			if c.currentAnimation.step == animationSteps {
-				c.currentAnimation.angle = c.currentAnimation.endAngle
 				defer c.endAnimation()
 			}
 		} else {
@@ -53,7 +51,6 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 			case axisZ:
 				cubits[i] = cubits[i].rotate(0, 0, c.currentAnimation.angle)
 			}
-
 		}
 	}
 
