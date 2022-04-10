@@ -73,15 +73,19 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 
 	// Draw surfaces
 	for i := 0; i < len(s); i++ {
-		surface2D := s[i].To2DCoords(distance, cubeDistance)
-
-		// Translate to screen coords
-		surface2D = surface2D.ToScreenCoords(width, height)
-
-		// Draw surface
-		drawQuadrilateral(ctx, true, 1, surface2D, surface2D.C1)
-		drawQuadrilateral(ctx, false, 2, surface2D, color.Black)
+		c.drawSurface(ctx, s[i])
 	}
+}
+
+func (c *Cube) drawSurface(ctx *cairo.Context, surface3D surface.Surface3) {
+	surface2D := surface3D.To2DCoords(distance, cubeDistance)
+
+	// Translate to screen coords
+	surface2D = surface2D.ToScreenCoords(width, height)
+
+	// Draw surface
+	drawQuadrilateral(ctx, true, 1, surface2D, surface2D.C1)
+	drawQuadrilateral(ctx, false, 2, surface2D, color.Black)
 }
 
 func (c *Cube) endAnimation() {
