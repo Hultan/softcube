@@ -15,24 +15,6 @@ const cubeDistance = 30.0
 const distance = 5
 const animationSteps = 20
 
-type axis int
-
-const (
-	axisX axis = iota
-	axisY
-	axisZ
-)
-
-type animation struct {
-	afterAnimation func()
-	step           int
-	angle          float64
-	startAngle     float64
-	endAngle       float64
-	cubits         []int
-	axis           axis
-}
-
 // drawBackground : Draws the background
 func (c *Cube) drawBackground(ctx *cairo.Context) {
 	setColor(ctx, c.BackgroundColor)
@@ -50,14 +32,15 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 			c.animatingQueue = c.animatingQueue[1:]
 		}
 	} else {
-		c.currentAnimation.step += 1
-		c.currentAnimation.angle += (c.currentAnimation.endAngle - c.currentAnimation.startAngle) / animationSteps
-		if c.currentAnimation.step == animationSteps {
-			c.currentAnimation.angle = c.currentAnimation.endAngle
-			defer func() {
-				c.currentAnimation.afterAnimation()
-				c.currentAnimation = nil
-			}()
+		if c.currentAnimation.animation {
+			c.currentAnimation.step += 1
+			c.currentAnimation.angle += (c.currentAnimation.endAngle - c.currentAnimation.startAngle) / animationSteps
+			if c.currentAnimation.step == animationSteps {
+				c.currentAnimation.angle = c.currentAnimation.endAngle
+				defer c.endAnimation()
+			}
+		} else {
+			defer c.endAnimation()
 		}
 
 		// Animate
@@ -102,4 +85,9 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 		drawQuadrilateral(ctx, true, 1, surface2D, surface2D.C1)
 		drawQuadrilateral(ctx, false, 2, surface2D, color.Black)
 	}
+}
+
+func (c *Cube) endAnimation() {
+	c.currentAnimation.afterAnimation()
+	c.currentAnimation = nil
 }

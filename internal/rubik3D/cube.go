@@ -68,8 +68,12 @@ func (c *Cube) IsAnimating() bool {
 }
 
 func (c *Cube) Reset() {
-	c.internalCube = rubik.NewSolvedCube()
-	c.updateColors()
+	f := func() {
+		c.internalCube = rubik.NewSolvedCube()
+		c.updateColors()
+	}
+	a := c.createNonAnimation(f)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) ExecuteAlg(algorithm string) {
@@ -474,13 +478,4 @@ func (c *Cube) getEMoveCubits() []int {
 
 func (c *Cube) getSMoveCubits() []int {
 	return []int{9, 10, 11, 12, 13, 14, 15, 16, 17}
-}
-
-func (c *Cube) createAnimation(after func(), endAngle float64, cubits []int, a axis) *animation {
-	return &animation{
-		afterAnimation: after,
-		endAngle:       endAngle,
-		cubits:         cubits,
-		axis:           a,
-	}
 }
