@@ -2,6 +2,9 @@ package rubik3D
 
 import (
 	"image/color"
+	"sort"
+
+	"github.com/gotk3/gotk3/cairo"
 
 	"github.com/hultan/softcube/internal/surface"
 	"github.com/hultan/softcube/internal/vector"
@@ -79,17 +82,44 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 	}
 }
 
-// func (c Cubit) Rotate(x, y, z float64) *Cubit {
-// 	return &Cubit{
-// 		B: c.B.Rotate(x,y,z),
-// 		V1:  s.V1.RotateX(x).RotateY(y).RotateZ(z),
-// 		V2:  s.V2.RotateX(x).RotateY(y).RotateZ(z),
-// 		V3:  s.V3.RotateX(x).RotateY(y).RotateZ(z),
-// 		V4:  s.V4.RotateX(x).RotateY(y).RotateZ(z),
-// 		Col: s.Col,
-// 	}
-// }
+func (c Cubit) rotate(x, y, z float64) Cubit {
+	return Cubit{
+		B: c.B.Rotate(x, y, z),
+		F: c.F.Rotate(x, y, z),
+		U: c.U.Rotate(x, y, z),
+		D: c.D.Rotate(x, y, z),
+		L: c.L.Rotate(x, y, z),
+		R: c.R.Rotate(x, y, z),
+	}
+}
 
 func (c Cubit) getSurfaces() []surface.Surface3 {
 	return []surface.Surface3{c.B, c.F, c.U, c.D, c.L, c.R}
+}
+
+func (c Cubit) Z() float64 {
+	return (c.B.Z() + c.F.Z() + c.U.Z() + c.D.Z() + c.L.Z() + c.R.Z()) / 6
+}
+
+func (c Cubit) draw(ctx *cairo.Context) {
+	s := c.getSurfaces()
+
+	// Sort by Z-coord
+	// We want draw surfaces in the back first
+	sort.Slice(s, func(i, j int) bool {
+		return s[i].Z() > s[j].Z()
+	})
+
+	// Draw the cube
+	for _, r := range s {
+		// Calculate 2d coords
+		surface2D := r.To2DCoords(distance, cubeDistance)
+
+		// Translate to screen coords
+		surface2D = surface2D.ToScreenCoords(width, height)
+
+		// Draw surface
+		drawQuadrilateral(ctx, true, 1, surface2D, surface2D.C1)
+		drawQuadrilateral(ctx, false, 2, surface2D, color.Black)
+	}
 }

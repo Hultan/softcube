@@ -1,12 +1,9 @@
 package rubik3D
 
 import (
-	"image/color"
 	"sort"
 
 	"github.com/gotk3/gotk3/cairo"
-
-	"github.com/hultan/softcube/internal/surface"
 )
 
 var width, height float64
@@ -23,35 +20,21 @@ func (c *Cube) drawBackground(ctx *cairo.Context) {
 
 // drawCube : Draws the actual cube
 func (c *Cube) drawCube(ctx *cairo.Context) {
-	var surfaces []surface.Surface3
+	var cubits []Cubit
 
-	// Collect all the surfaces
-	for _, cubit := range c.cubits {
-		surfaces = append(surfaces, cubit.getSurfaces()...)
-	}
-
-	// Rotate the cube
-	var rotatedSurfaces []surface.Surface3
-	for _, s := range surfaces {
-		rotatedSurfaces = append(rotatedSurfaces, s.Rotate(c.AngleX, c.AngleY, c.AngleZ))
+	// Rotate cubits
+	for i := 0; i < 27; i++ {
+		cubits = append(cubits, c.cubits[i].rotate(c.AngleX, c.AngleY, c.AngleZ))
 	}
 
 	// Sort by Z-coord
 	// We want draw surfaces in the back first
-	sort.Slice(rotatedSurfaces, func(i, j int) bool {
-		return rotatedSurfaces[i].Z() > rotatedSurfaces[j].Z()
+	sort.Slice(cubits, func(i, j int) bool {
+		return cubits[i].Z() > cubits[j].Z()
 	})
 
-	// Draw the cube
-	for _, r := range rotatedSurfaces {
-		// Calculate 2d coords
-		surface2D := r.To2DCoords(distance, cubeDistance)
-
-		// Translate to screen coords
-		surface2D = surface2D.ToScreenCoords(width, height)
-
-		// Draw surface
-		drawQuadrilateral(ctx, true, 1, surface2D, surface2D.C1)
-		drawQuadrilateral(ctx, false, 2, surface2D, color.Black)
+	// Draw cubits
+	for i := 0; i < 27; i++ {
+		cubits[i].draw(ctx)
 	}
 }
