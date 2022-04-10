@@ -53,6 +53,8 @@ func NewCube(b *framework.GtkBuilder, w *gtk.ApplicationWindow, da *gtk.DrawingA
 	}
 
 	cube = rubik3D.NewCube()
+	cube.R()
+	cube.Rc()
 	resetRotation()
 
 	return t

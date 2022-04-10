@@ -3,6 +3,7 @@ package rubik3D
 import (
 	"fmt"
 	"image/color"
+	"math"
 	"strings"
 
 	"github.com/gotk3/gotk3/cairo"
@@ -19,6 +20,9 @@ type Cube struct {
 
 	cubits       []Cubit
 	internalCube rubik.Cube
+
+	currentAnimation *animation
+	animatingQueue   []*animation
 }
 
 var (
@@ -29,6 +33,8 @@ var (
 	green  = color.RGBA{R: 24, G: 76, B: 24, A: 255}
 	yellow = color.RGBA{R: 200, G: 200, B: 0, A: 255}
 )
+
+var endAnimation func()
 
 func NewCube() *Cube {
 	c := &Cube{}
@@ -55,6 +61,10 @@ func NewCube() *Cube {
 	c.updateColors()
 
 	return c
+}
+
+func (c *Cube) IsAnimating() bool {
+	return c.currentAnimation != nil
 }
 
 func (c *Cube) Reset() {
@@ -136,13 +146,27 @@ func (c *Cube) Lc() {
 }
 
 func (c *Cube) R() {
-	c.internalCube = c.internalCube.R()
-	c.updateColors()
+	a := &animation{
+		afterAnimation: func() {
+			c.internalCube = c.internalCube.R()
+			c.updateColors()
+		},
+		endAngle: -math.Pi / 2,
+		cubits:   c.getRMoveCubits(),
+	}
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Rc() {
-	c.internalCube = c.internalCube.Rc()
-	c.updateColors()
+	a := &animation{
+		afterAnimation: func() {
+			c.internalCube = c.internalCube.Rc()
+			c.updateColors()
+		},
+		endAngle: math.Pi / 2,
+		cubits:   c.getRMoveCubits(),
+	}
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) F() {
@@ -312,4 +336,39 @@ func (c *Cube) updateColors() {
 	c.cubits[24].D.Col = getColor(str[51])
 	c.cubits[25].D.Col = getColor(str[52])
 	c.cubits[26].D.Col = getColor(str[53])
+}
+
+// getCubits returns a slice of copies of the cubits
+func (c *Cube) getCubits() []Cubit {
+	var cubits []Cubit
+
+	for i := 0; i < 27; i++ {
+		cubits = append(cubits, c.cubits[i])
+	}
+
+	return cubits
+}
+
+func (c *Cube) getUMoveCubits() []int {
+	return []int{18, 19, 20, 9, 10, 11, 0, 1, 2}
+}
+
+func (c *Cube) getDMoveCubits() []int {
+	return []int{6, 7, 8, 15, 16, 17, 24, 25, 26}
+}
+
+func (c *Cube) getRMoveCubits() []int {
+	return []int{2, 11, 20, 5, 14, 23, 8, 17, 26}
+}
+
+func (c *Cube) getLMoveCubits() []int {
+	return []int{18, 9, 0, 21, 12, 3, 24, 15, 6}
+}
+
+func (c *Cube) getFMoveCubits() []int {
+	return []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+}
+
+func (c *Cube) getBMoveCubits() []int {
+	return []int{18, 19, 20, 21, 22, 23, 24, 25, 26}
 }

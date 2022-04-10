@@ -82,7 +82,8 @@ func NewCubit(LUB, RUB, LUF, RUF, LDB, RDB, LDF, RDF vector.Vector3) Cubit {
 	}
 }
 
-func (c Cubit) rotate(x, y, z float64) Cubit {
+// rotate : Returns a new rotated cubit
+func (c *Cubit) rotate(x, y, z float64) Cubit {
 	return Cubit{
 		B: c.B.Rotate(x, y, z),
 		F: c.F.Rotate(x, y, z),
@@ -93,15 +94,16 @@ func (c Cubit) rotate(x, y, z float64) Cubit {
 	}
 }
 
-func (c Cubit) getSurfaces() []surface.Surface3 {
+// getSurfaces : Returns a slice of surfaces
+func (c *Cubit) getSurfaces() []surface.Surface3 {
 	return []surface.Surface3{c.B, c.F, c.U, c.D, c.L, c.R}
 }
 
-func (c Cubit) Z() float64 {
+func (c *Cubit) Z() float64 {
 	return (c.B.Z() + c.F.Z() + c.U.Z() + c.D.Z() + c.L.Z() + c.R.Z()) / 6
 }
 
-func (c Cubit) draw(ctx *cairo.Context) {
+func (c *Cubit) draw(ctx *cairo.Context) {
 	s := c.getSurfaces()
 
 	// Sort by Z-coord
