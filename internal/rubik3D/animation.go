@@ -8,7 +8,7 @@ const (
 	axisZ
 )
 
-const animationSteps = 30
+const animationSteps = 10
 
 type animation struct {
 	isAnimation    bool
