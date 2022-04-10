@@ -2,7 +2,6 @@ package rubik3D
 
 import (
 	"image/color"
-	"math"
 	"sort"
 
 	"github.com/gotk3/gotk3/cairo"
@@ -101,13 +100,14 @@ func (c *Cubit) getSurfaces() []surface.Surface3 {
 }
 
 func (c *Cubit) Z() float64 {
-	max := math.Max(c.B.Z(), c.F.Z())
-	max = math.Max(max, c.U.Z())
-	max = math.Max(max, c.D.Z())
-	max = math.Max(max, c.R.Z())
-	max = math.Max(max, c.L.Z())
-
-	return max
+	return (c.B.Z() + c.F.Z() + c.U.Z() + c.D.Z() + c.L.Z() + c.R.Z()) / 6
+	// max := math.Max(c.B.Z(), c.F.Z())
+	// max = math.Max(max, c.U.Z())
+	// max = math.Max(max, c.D.Z())
+	// max = math.Max(max, c.R.Z())
+	// max = math.Max(max, c.L.Z())
+	//
+	// return max
 }
 
 func (c *Cubit) draw(ctx *cairo.Context) {

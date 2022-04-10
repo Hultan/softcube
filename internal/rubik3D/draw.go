@@ -1,9 +1,12 @@
 package rubik3D
 
 import (
+	"image/color"
 	"sort"
 
 	"github.com/gotk3/gotk3/cairo"
+
+	"github.com/hultan/softcube/internal/surface"
 )
 
 var width, height float64
@@ -12,6 +15,14 @@ const cubeDistance = 30.0
 const distance = 5
 const animationSteps = 20
 
+type axis int
+
+const (
+	axisX axis = iota
+	axisY
+	axisZ
+)
+
 type animation struct {
 	afterAnimation func()
 	step           int
@@ -19,6 +30,7 @@ type animation struct {
 	startAngle     float64
 	endAngle       float64
 	cubits         []int
+	axis           axis
 }
 
 // drawBackground : Draws the background
@@ -50,7 +62,15 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 
 		// Animate
 		for _, i := range c.currentAnimation.cubits {
-			cubits[i] = cubits[i].rotate(c.currentAnimation.angle, 0, 0)
+			switch c.currentAnimation.axis {
+			case axisX:
+				cubits[i] = cubits[i].rotate(c.currentAnimation.angle, 0, 0)
+			case axisY:
+				cubits[i] = cubits[i].rotate(0, c.currentAnimation.angle, 0)
+			case axisZ:
+				cubits[i] = cubits[i].rotate(0, 0, c.currentAnimation.angle)
+			}
+
 		}
 	}
 
@@ -59,14 +79,27 @@ func (c *Cube) drawCube(ctx *cairo.Context) {
 		cubits[i] = cubits[i].rotate(c.AngleX, c.AngleY, c.AngleZ)
 	}
 
+	// Collect surfaces
+	var s []surface.Surface3
+	for _, cubit := range cubits {
+		s = append(s, cubit.getSurfaces()...)
+	}
+
 	// Sort by Z-coord
 	// We want draw surfaces in the back first
-	sort.Slice(cubits, func(i, j int) bool {
-		return cubits[i].Z() > cubits[j].Z()
+	sort.Slice(s, func(i, j int) bool {
+		return s[i].Z() > s[j].Z()
 	})
 
-	// Draw cubits
-	for i := 0; i < 27; i++ {
-		cubits[i].draw(ctx)
+	// Draw surfaces
+	for i := 0; i < len(s); i++ {
+		surface2D := s[i].To2DCoords(distance, cubeDistance)
+
+		// Translate to screen coords
+		surface2D = surface2D.ToScreenCoords(width, height)
+
+		// Draw surface
+		drawQuadrilateral(ctx, true, 1, surface2D, surface2D.C1)
+		drawQuadrilateral(ctx, false, 2, surface2D, color.Black)
 	}
 }

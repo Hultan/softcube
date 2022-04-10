@@ -86,137 +86,219 @@ func (c *Cube) Draw(da *gtk.DrawingArea, ctx *cairo.Context) {
 }
 
 func (c *Cube) X() {
-	c.internalCube = c.internalCube.X()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.X()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getAllCubits(), axisX)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Xc() {
-	c.internalCube = c.internalCube.Xc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Xc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getAllCubits(), axisX)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Y() {
-	c.internalCube = c.internalCube.Y()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Y()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getAllCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Yc() {
-	c.internalCube = c.internalCube.Yc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Yc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getAllCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Z() {
-	c.internalCube = c.internalCube.Z()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Z()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getAllCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Zc() {
-	c.internalCube = c.internalCube.Zc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Zc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getAllCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) U() {
-	c.internalCube = c.internalCube.U()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.U()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getUMoveCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Uc() {
-	c.internalCube = c.internalCube.Uc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Uc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getUMoveCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) D() {
-	c.internalCube = c.internalCube.D()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.D()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getDMoveCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Dc() {
-	c.internalCube = c.internalCube.Dc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Dc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getDMoveCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) L() {
-	c.internalCube = c.internalCube.L()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.L()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getLMoveCubits(), axisX)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Lc() {
-	c.internalCube = c.internalCube.Lc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Lc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getLMoveCubits(), axisX)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) R() {
-	a := &animation{
-		afterAnimation: func() {
-			c.internalCube = c.internalCube.R()
-			c.updateColors()
-		},
-		endAngle: -math.Pi / 2,
-		cubits:   c.getRMoveCubits(),
+	f := func() {
+		c.internalCube = c.internalCube.R()
+		c.updateColors()
 	}
+	a := c.createAnimation(f, -math.Pi/2, c.getRMoveCubits(), axisX)
 	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Rc() {
-	a := &animation{
-		afterAnimation: func() {
-			c.internalCube = c.internalCube.Rc()
-			c.updateColors()
-		},
-		endAngle: math.Pi / 2,
-		cubits:   c.getRMoveCubits(),
+	f := func() {
+		c.internalCube = c.internalCube.Rc()
+		c.updateColors()
 	}
+	a := c.createAnimation(f, math.Pi/2, c.getRMoveCubits(), axisX)
 	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) F() {
-	c.internalCube = c.internalCube.F()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.F()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getFMoveCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Fc() {
-	c.internalCube = c.internalCube.Fc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Fc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getFMoveCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) B() {
-	c.internalCube = c.internalCube.B()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.B()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getBMoveCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Bc() {
-	c.internalCube = c.internalCube.Bc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Bc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getBMoveCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) M() {
-	c.internalCube = c.internalCube.M()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.M()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getMMoveCubits(), axisX)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Mc() {
-	c.internalCube = c.internalCube.Mc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Mc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getMMoveCubits(), axisX)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) S() {
-	c.internalCube = c.internalCube.S()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.S()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getSMoveCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Sc() {
-	c.internalCube = c.internalCube.Sc()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Sc()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getSMoveCubits(), axisZ)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) E() {
-	c.internalCube = c.internalCube.E()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.E()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, -math.Pi/2, c.getEMoveCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 func (c *Cube) Ec() {
-	c.internalCube = c.internalCube.Ec()
-	c.updateColors()
+	f := func() {
+		c.internalCube = c.internalCube.Ec()
+		c.updateColors()
+	}
+	a := c.createAnimation(f, math.Pi/2, c.getEMoveCubits(), axisY)
+	c.animatingQueue = append(c.animatingQueue, a)
 }
 
 // TODO : Double turns CTRL + u,d,r,l,f,b
@@ -349,6 +431,15 @@ func (c *Cube) getCubits() []Cubit {
 	return cubits
 }
 
+func (c *Cube) getAllCubits() []int {
+	var cubits []int
+
+	for i := 0; i < 27; i++ {
+		cubits = append(cubits, i)
+	}
+	return cubits
+}
+
 func (c *Cube) getUMoveCubits() []int {
 	return []int{18, 19, 20, 9, 10, 11, 0, 1, 2}
 }
@@ -371,4 +462,25 @@ func (c *Cube) getFMoveCubits() []int {
 
 func (c *Cube) getBMoveCubits() []int {
 	return []int{18, 19, 20, 21, 22, 23, 24, 25, 26}
+}
+
+func (c *Cube) getMMoveCubits() []int {
+	return []int{1, 4, 7, 10, 13, 16, 19, 22, 25}
+}
+
+func (c *Cube) getEMoveCubits() []int {
+	return []int{3, 4, 5, 12, 13, 14, 21, 22, 23}
+}
+
+func (c *Cube) getSMoveCubits() []int {
+	return []int{9, 10, 11, 12, 13, 14, 15, 16, 17}
+}
+
+func (c *Cube) createAnimation(after func(), endAngle float64, cubits []int, a axis) *animation {
+	return &animation{
+		afterAnimation: after,
+		endAngle:       endAngle,
+		cubits:         cubits,
+		axis:           a,
+	}
 }

@@ -2,7 +2,6 @@ package surface
 
 import (
 	"image/color"
-	"math"
 
 	"github.com/hultan/softcube/internal/vector"
 )
@@ -13,11 +12,13 @@ type Surface3 struct {
 }
 
 func (s *Surface3) Z() float64 {
-	max := math.Max(s.V1.Z, s.V2.Z)
-	max = math.Max(max, s.V3.Z)
-	max = math.Max(max, s.V4.Z)
+	return (s.V1.Z + s.V2.Z + s.V3.Z + s.V4.Z) / 4
 
-	return max
+	// max := math.Max(s.V1.Z, s.V2.Z)
+	// max = math.Max(max, s.V3.Z)
+	// max = math.Max(max, s.V4.Z)
+	//
+	// return max
 }
 
 func (s *Surface3) Rotate(x, y, z float64) Surface3 {
