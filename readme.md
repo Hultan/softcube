@@ -7,4 +7,8 @@ A program that helps you with memorizing Rubik's Cube algorithms...we'll it migh
 * I am using yackx:s package `rubik` as the internal representation for a Rubiks cube : https://github.com/yackx/go-rubik/issues
 ## TODO
 
-* Still a visual glitch in the animation
+* Still a visual glitch in the animation (z-order sorting)
+
+## SCREENSHOT
+
+![screenshot](assets/screenshot.png)
