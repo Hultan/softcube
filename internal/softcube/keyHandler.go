@@ -1,9 +1,5 @@
 package softcube
 
-import (
-	"fmt"
-)
-
 type keyHandler struct {
 	handlers         map[uint]func()
 	ctrlHandlers     map[uint]func()
@@ -48,7 +44,7 @@ func (h *keyHandler) setupKeyHandlers() {
 				cube.AngleZ += 0.1
 			}
 		},
-		// Button "x" => Rotate around X
+		// Button "X" => Rotate around X counterclockwise
 		keyX: func() {
 			if h.rotate {
 				cube.Xc()
@@ -56,7 +52,7 @@ func (h *keyHandler) setupKeyHandlers() {
 				cube.AngleX -= 0.1
 			}
 		},
-		// Button "y" => Rotate around y
+		// Button "Y" => Rotate around y counterclockwise
 		keyY: func() {
 			if h.rotate {
 				cube.Yc()
@@ -64,7 +60,7 @@ func (h *keyHandler) setupKeyHandlers() {
 				cube.AngleY -= 0.1
 			}
 		},
-		// Button "z" => Rotate around z
+		// Button "Z" => Rotate around z counterclockwise
 		keyZ: func() {
 			if h.rotate {
 				cube.Zc()
@@ -99,9 +95,21 @@ func (h *keyHandler) setupKeyHandlers() {
 	}
 
 	h.ctrlHandlers = map[uint]func(){
-		// TODO : Double turns CTRL + u,d,r,l,f,b
+		// Double turns
+		keyu: func() { cube.Ud() },  // Button CTRL + "u" => u turn
+		keyd: func() { cube.Dd() },  // Button CTRL + "d" => d turn
+		keyU: func() { cube.Udc() }, // Button CTRL + "U" => u' turn
+		keyD: func() { cube.Ddc() }, // Button CTRL + "D" => d' turn
 
-		keyp: func() { fmt.Println("Per!") }, // CTRL + p
+		keyr: func() { cube.Rd() },  // Button CTRL + "r" => r turn
+		keyl: func() { cube.Ld() },  // Button CTRL + "l" => l turn
+		keyR: func() { cube.Rdc() }, // Button CTRL + "R" => r' turn
+		keyL: func() { cube.Ldc() }, // Button CTRL + "L" => l' turn
+
+		keyf: func() { cube.Fd() },  // Button CTRL + "f" => f turn
+		keyb: func() { cube.Bd() },  // Button CTRL + "b" => b turn
+		keyF: func() { cube.Fdc() }, // Button CTRL + "F" => f' turn
+		keyB: func() { cube.Bdc() }, // Button CTRL + "B" => b' turn
 	}
 }
 

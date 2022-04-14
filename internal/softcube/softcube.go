@@ -95,6 +95,8 @@ func (sc *SoftCube) onKeyReleased(_ *gtk.ApplicationWindow, e *gdk.Event) {
 		return
 	}
 
+	// Quit is handled outside the key handler since it needs access
+	// to the sc.window.Close() method
 	switch key.KeyVal() {
 	// Misc controls
 	case keyq: // Button "Q" => Quit game
